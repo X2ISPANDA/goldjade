@@ -1,0 +1,2188 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="一、NoSql入门和概述
+
+NoSQL(Not Only SQL)，不仅仅是SQL，泛指非关系型数据库。
+NoSQL不依赖业务逻辑方式存储，而以简单地key-value模式存储，大大增加了数据库的扩展能力。
+NOSQL不遵循SQL标准。
+不..." />
+    <meta name="keywords" content="Redis" />
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>Redis</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://codingbear.top</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <head>
+  <!-- 引入Bootstrap核心样式文件 -->
+  <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+</head>
+<style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" href="https://codingbear.top">琢钰&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        <li><a data-pjax href="https://codingbear.top/talk">说说</a></li>
+        
+          
+        <li><a data-pjax href="https://codingbear.top/friends">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/" + "97be6dc3" + ".js", "daovoice")
+    </script>
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://codingbear.top/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://codingbear.top/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading">
+            <div class="loading">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://codingbear.top/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://codingbear.top/images/avatar.png?v=1628686722853" class="avatar">
+        </div>
+        <div class="sitename">琢钰</div>
+        <span class="description" data-text='["玉不琢，不成器。人不学，不知义。"]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">12</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span>Hello,it&#39;s me！</span>
+        
+        <a href="https://github.com/godbear329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/github.png" alt=""></i></a>
+        
+        
+        <a onclick="showqq()"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/QQ.png" alt=""></i></a>
+        
+        
+        <a href="https://www.zhihu.com/people/xmy0329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/zh.png" alt=""></i></a>
+        
+        
+        <a href="https://space.bilibili.com/37977624" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/bilibili.png" alt=""></i></a>
+        
+        
+        
+        <a href="https://weibo.com/URsun329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/weibos.png" alt=""></i></a>
+        
+        
+        
+        <a href="https://steamcommunity.com/id/xmy0329/" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/steam.png" alt=""></i></a>
+        
+    </div>
+    <div id="qq" style="display:none">254716908</div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/talk" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="说说"></i>&nbsp;<span data-text="说说">说说</span>
+            </a>
+        </div>
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/atom.xml" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="RSS"></i>&nbsp;<span data-text="RSS"> RSS</span>
+            </a>
+        </div>
+            
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="#terrestrial" id="fog_go" class="open-popup menubutton" style="margin-right: 15px;">
+                    <i><img class="icon menuicon" src="" alt="御风飞行"></i>&nbsp;<span data-text="御风飞行">御风飞行</span>
+            </a>
+        </div>
+        
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/godbear329" target="_blank">X2</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+                <div id="sitegotimeDate">载入天数...</div>
+                <div id="sitegotimes">载入时分秒...</div>
+                <div id="cussitetime" style="display:none">08/07/2020</div>
+                
+            </div>
+            <div>
+                
+                <script async
+                    src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/busuanzi.pure.mini.js"></script>
+                <div id="vistornum" style="margin:0">
+                    <span id="busuanzi_container_site_uv">
+                        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i> 总访问量:<span
+                            id="busuanzi_value_site_pv"></span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <i class="fa fa-user-o" aria-hidden="true"></i> 访问人数:<span id="busuanzi_value_site_uv"></span>
+                    </span>
+                </div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">Copyright © 2021 codingbear.top 湘ICP备 2021008657号
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+<script>
+    //----------------------站点运行时间
+    var now = new Date();
+
+    function createtime() {
+        var sitegotime = document.getElementById("cussitetime").innerHTML + " 00:00:00";
+        var grt = new Date(sitegotime); //此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+            mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+            snum = "0" + snum;
+        }
+        document.getElementById("sitegotimeDate").innerHTML = "本站已安全运行 " + dnum + " 天 ";
+        document.getElementById("sitegotimes").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+
+    let intervalId = setInterval("createtime()", 250);
+</script>
+
+    </div>
+
+
+    <script src="https://codingbear.top/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://codingbear.top/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "琢钰";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "琢钰";
+            var siteurl = "https://codingbear.top";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script>
+<!------------- Fog1.0版本彩蛋👆 -------------->
+
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        let shareChoice = true
+    </script>
+    
+    
+    <script>
+        let donateChoice = true
+    </script>
+    
+    
+    <script>
+        let searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    马来西亚华人
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    东奥所感
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    十年
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习08-数据库
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习07-IO流
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习06-多线程
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习05-集合
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    法老-隐藏曲目（feat.戴斯蒙德）
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习04-面向对象
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    艾福杰尼-KORLA
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Skr Skr Skr - 艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    1992 Part 3（下）-艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    G Plus (El Chapo Remix) - 艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    1992 Part 3（上）-艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    林宥嘉 - 年纪大了一点（Live） 橘子星光大道
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习03-几种基本的排序算法
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Kendrick Lamar - DNA.
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习02-流程控制与数组
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习01-数据类型和运算符
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    【假面舞团】NBA总决赛表演 JABBAWOCKEEZ
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    宋岳庭 - Life&#39;s A Struggle
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Tizzy T/Jony J - 变
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Redis
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    阴三儿 - 北京晚报
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    C-Low - 一块胶布
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Nginx
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Hello World！
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            let menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+    <script>
+        var iconname = "首页";
+        var iconurl = "https://cdn3.iconfinder.com/data/icons/vol-3/128/home-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "归档";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/files-and-folders-15/48/11-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "标签";
+        var iconurl = "https://cdn0.iconfinder.com/data/icons/expenses-vs-income/30/__label_tag_shopping_price-256.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "关于";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/basic-ui-flat-curv-bg/614/127_-_Information-256.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "说说";
+        var iconurl = "https://cdn1.iconfinder.com/data/icons/media-1-2/32/Communication-Conversation-Chat-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "友人帐";
+        var iconurl = "https://cdn0.iconfinder.com/data/icons/happy-man-human-resource-and-life-style-color-set-/91/Happy_Man_Human_Resource__Life_Style_C-02-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "RSS";
+        var iconurl = "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/286_Rss_logo-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "御风飞行";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/life-concepts-lifestyles/128/world-travel-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://codingbear.top/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://codingbear.top/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[{"author":"X2","img":"","text":"黑科技（Black Technology ）是在日本动漫《全金属狂潮》中登场的术语，原意指非人类自力研发，凌驾于人类现有的科技之上的知识，引申为以人类现有的世界观无法理解的猎奇物。","time":"2020年8月12日09:21:02"},{"author":"X2","img":"https://i.loli.net/2021/05/18/tsuZa4rRfYMbH95.png","text":"ElasticSearch的404页面很有意思:`I refuse to prove that I exist,’ says Page, `for proof denies faith, and without faith I am nothing.’  `But,’ says Man, `The Babel fish is a dead giveaway, isn’t it? It could not have evolved by chance. It proves you exist, and so therefore, by your own arguments, you don’t. QED.’  `Oh dear,’ says Page, `I hadn’t thought of that,’ and promptly disappears in a puff of logic.","time":"2021年5月18日23:01:40"},{"author":"X2","img":"","text":"异常和错误的基类是Throwable，包括Exception和Error。","time":"2020年9月17日01:48:39"},{"author":"X2","img":"","text":"System.out.println()中System是java.lang中的一个类，out是System内的一个成员变量，这个变量是一个java.io.PrintStream类的对象，println是其中的一个方法。","time":"2020年9月16日19:19:32"},{"author":"X2","img":"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2650078973,165148164&fm=26&gp=0.jpg","text":"承认自己的无知，乃是开启智慧的大门。","time":"2020年8月13日00:20:46"},{"author":"X2","img":"http://x0.ifengimg.com/res/2019/B5E2471C3A4D1232FBBE859658CF66AE0E06FB39_size189_w452_h345.png","text":"你走到光明处，有好心人报个信，你的男人王玉明接你回家。","time":"2020年8月20日22:26:53"},{"author":"X2","img":"","text":"局部变量不会进行初始化。","time":"2020年9月11日01:16:27"},{"author":"X2","img":"https://pic2.zhimg.com/80/v2-a51a22ae2f7001c50ed02a26e4a1bb29_720w.jpg","text":"满嘴顺口溜，你想考研啊？-《疯狂的赛车》","time":"2020年10月3日21:08:47"}]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://codingbear.top/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        getHotnum();
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            imglazyloadinit();
+            lazyload();
+            codeinit();
+            if ("valine" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+<script>
+    daovoice('init', {
+        app_id: "97be6dc3"
+    });
+    daovoice('update');
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://codingbear.top/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+</div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <link rel="stylesheet" href="https://codingbear.top/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                <img src="https://pic2.zhimg.com/v2-a949c0480a6b205ec1d7e1ae6b37a51a_1440w.jpg?source=172ae18b" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2020-08-09</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 23 min read</div>
+                <div class="posttag">
+                    
+                    <a data-pjax href="https://codingbear.top/c5Fp7zHko/" class="postlink">
+                        <i class="fa fa-tag"></i> Redis
+                    </a>
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">Redis</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://codingbear.top/redis/</div>
+                <div id="rootaddr" style="display:none">https://codingbear.top</div>
+                
+                    <span id="hotnum">
+                        <h4><i class="fa fa-eye" aria-hidden="true" style="color: #FF8C00;"></i>&nbsp;&nbsp;热度</i>: <i
+                                class="hotnum">loading...</i></h4>
+                    </span>
+                
+            </div>
+            <div class="text ">
+                <h2 id="一-nosql入门和概述">一、NoSql入门和概述</h2>
+<ul>
+<li>NoSQL(Not Only SQL)，不仅仅是SQL，泛指非关系型数据库。</li>
+<li>NoSQL不依赖业务逻辑方式存储，而以简单地key-value模式存储，大大增加了数据库的扩展能力。</li>
+<li>NOSQL不遵循SQL标准。</li>
+<li>不支持ACID。</li>
+<li>远超于SQL的性能。</li>
+</ul>
+<h3 id="适用场景">适用场景</h3>
+<ul>
+<li>对数据高并发的读写</li>
+<li>海量数据的读写</li>
+<li>对数据有高可扩展性要求</li>
+</ul>
+<p>不适用于需要事务支持和即席查询（条件查询）的场景。</p>
+<h3 id="缓存数据库">缓存数据库</h3>
+<p>主要的缓存数据库有：</p>
+<ul>
+<li>Memcached</li>
+<li>Redis</li>
+<li>MangoDB</li>
+<li>HBase （Hadoop）</li>
+<li>Cassandra （Apache）</li>
+<li>Neo4J</li>
+</ul>
+<p>只有ManggoDB可替代关系型数据库。</p>
+<p><strong>Memcached与Redis的区别：</strong></p>
+<ul>
+<li>Redis是可持久化的，Memcached一般不持久化。</li>
+<li>Memcached只支持简单的key-value模式，Redis还支持多种数据结构的存储。</li>
+<li>Memcached使用的是多线程+锁，Redis使用的是单线程+多路IO复用。</li>
+</ul>
+<h2 id="二-redis安装">二、Redis安装</h2>
+<h3 id="21-步骤">2.1 步骤</h3>
+<ol>
+<li>
+<p>下载Redis安装包</p>
+</li>
+<li>
+<p>解压</p>
+<pre><code class="language-shell">tar -zxvf redis-3.2.5.tar.gz
+</code></pre>
+</li>
+<li>
+<p>进入目录</p>
+<pre><code class="language-shell">cd redis-6.0.5/
+</code></pre>
+</li>
+<li>
+<p>进行编译</p>
+<pre><code class="language-shell">make
+</code></pre>
+<p>如果报错，需要安装gcc和gcc-c++</p>
+<pre><code class="language-shell">yum install gcc
+yum install gcc-c++
+make distclean
+</code></pre>
+</li>
+<li>
+<p>安装</p>
+<pre><code class="language-shell">make install
+</code></pre>
+</li>
+</ol>
+<h3 id="22-目录介绍">2.2 目录介绍</h3>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2020/07/03/zftbsHZR4IM13WE.png" alt="image-20200703213526049" loading="lazy"></figure>
+<ul>
+<li>redis-benchmark：性能测试工具</li>
+<li>redis-check-aof：修复有问题的AOF文件</li>
+<li>redis-check-rdb：修复有问题的dump.rdb文件</li>
+<li>redis-cli：客户端操作入口</li>
+<li>redis-sentinel：Redis集群使用</li>
+<li>redis-server：Redis服务器启动命令</li>
+</ul>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2020/07/03/vzg5K9O4eVbojZM.png" alt="image-20200703214210259" loading="lazy"></figure>
+<h3 id="23-启动redis">2.3 启动Redis</h3>
+<ol>
+<li>
+<p>备份配置文件</p>
+<pre><code class="language-shell">cp redis.conf /opt/myRedis/redis.conf
+</code></pre>
+</li>
+<li>
+<p>修改配置文件</p>
+<pre><code class="language-conf">daemonize yes
+</code></pre>
+</li>
+<li>
+<p>启动</p>
+<pre><code class="language-shell">redis-server /opt/myRedis/redis.conf
+</code></pre>
+</li>
+<li>
+<p>检查是否启动</p>
+<pre><code class="language-shell">[root@xmy329 myRedis]# ps -ef | grep redis
+root      2940     1  0 21:50 ?        00:00:00 redis-server 127.0.0.1:6379
+root      2951  2570  0 21:50 pts/0    00:00:00 grep --color=auto redis
+</code></pre>
+</li>
+<li>
+<p>用客户端访问</p>
+<pre><code class="language-shell">[root@xmy329 myRedis]# redis-cli
+127.0.0.1:6379&gt; exit
+[root@xmy329 myRedis]# redis-cli -h 127.0.0.1 -p 6379
+127.0.0.1:6379&gt; 
+</code></pre>
+</li>
+<li>
+<p>测试验证</p>
+<pre><code class="language-shell">[root@xmy329 myRedis]# redis-cli
+127.0.0.1:6379&gt; ping
+PONG
+127.0.0.1:6379&gt; 
+</code></pre>
+</li>
+</ol>
+<blockquote>
+<p>为什么Redis的端口号是6379？</p>
+<p>6379在是手机按键上MERZ对应的号码，而MERZ取自意大利歌女<a href="http://it.wikipedia.org/wiki/Alessia_Merz">Alessia Merz</a>的名字。MERZ长期以来被antirez及其朋友当作愚蠢的代名词。<a href="http://blog.nosqlfan.com/tags/redis">Redis</a>作者antirez同学在twitter上说将在下一篇博文中向大家解释为什么他选择<a href="http://blog.nosqlfan.com/tags/6379">6379</a>作为默认端口号。</p>
+<p><a href="http://blog.sina.com.cn/s/blog_5c3e308a0100c1jb.html">GHS</a></p>
+</blockquote>
+<h3 id="24-相关知识">2.4 相关知识</h3>
+<ul>
+<li>默认16个数据库，类似数组下标从0开始，初始默认使用0号库，使用select index 切换数据库</li>
+<li>同一密码管理，所有库都是同一个密码，要么都OK要么一个都连不上</li>
+<li>Redis是单线程+多路IO复用技术</li>
+</ul>
+<blockquote>
+<p>作者：levonfly<br>
+链接：https://www.zhihu.com/question/32163005/answer/300165049<br>
+来源：知乎<br>
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>IO模式一般分为同步IO和异步IO.  同步IO会阻塞进程, 异步IO不会阻塞进程. 目前linux上大部分用的是同步IO, 异步IO在linux上目前还不成熟, 不过windows的iocp算是真正的异步IO。</p>
+<p>同步IO又分为阻塞IO, 非阻塞IO, IO多路复用.  What? 同步IO明明会阻塞进程,为什么也包括非阻塞IO?  因为非阻塞IO虽然在请求数据时不阻塞, 但真正数据来临时,也就是内核数据拷贝到用户数据时, 此时进程是阻塞的.</p>
+<p>那么这些IO模式的区别分别是什么? 接下来举个小例子来说明. 假设你现在去女生宿舍楼找自己的女神, 但是你只知道女神的手机号,并不知道女神的具体房间</p>
+<p>先说同步IO的情况,</p>
+<ol>
+<li>
+<p>阻塞IO,   给女神发一条短信, 说我来找你了, 然后就默默的一直等着女神下楼, 这个期间除了等待你不会做其他事情, 属于备胎做法.</p>
+</li>
+<li>
+<p>非阻塞IO, 给女神发短信, 如果不回, 接着再发, 一直发到女神下楼, 这个期间你可以在两次发短信间隙喝口水，属于专一做法.</p>
+</li>
+<li>
+<p>IO多路复用,  是找一个宿管大妈来帮你监视下楼的女生, 这个期间你可以些其他的事情. 例如可以顺便看看其他妹子,玩玩王者荣耀, 上个厕所等等.  IO复用又包括 select, poll, epoll 模式. 那么它们的区别是什么?</p>
+<p>3.1 select大妈    每一个女生下楼, select大妈都不知道这个是不是你的女神, 她需要一个一个询问, 并且select大妈能力还有限, 最多一次帮你监视1024个妹子</p>
+<p>3.2 poll大妈不限制盯着女生的数量,  只要是经过宿舍楼门口的女生, 都会帮你去问是不是你女神</p>
+<p>3.3 epoll大妈不限制盯着女生的数量, 并且也不需要一个一个去问.  那么如何做呢?  epoll大妈会为每个进宿舍楼的女生脸上贴上一个大字条,上面写上女生自己的名字,  只要女生下楼了, epoll大妈就知道这个是不是你女神了, 然后大妈再通知你.</p>
+</li>
+</ol>
+<p>上面这些同步IO有一个共同点就是, 当女神走出宿舍门口的时候, 你已经站在宿舍门口等着女神的, 此时你属于阻塞状态</p>
+<p>接下来是异步IO的情况</p>
+<p>你告诉女神我来了, 然后你就去王者荣耀了, 一直到女神下楼了, 发现找不见你了, 女神再给你打电话通知你, 说我下楼了, 你在哪呢?  这时候你才来到宿舍门口. 此时属于逆袭做法</p>
+</blockquote>
+<h2 id="三-redis基本指令">三、Redis基本指令</h2>
+<h3 id="31-redis五大数据类型">3.1 Redis五大数据类型</h3>
+<ul>
+<li>string</li>
+<li>set</li>
+<li>list</li>
+<li>hash</li>
+<li>zset</li>
+</ul>
+<blockquote>
+<p>指的是键对应的值的类型。</p>
+</blockquote>
+<h3 id="32-key">3.2 key</h3>
+<ul>
+<li>keys *：查询当前所有的键</li>
+<li>exists &lt;key&gt;：判断某个键是否存在</li>
+<li>type &lt;key&gt;：查看键的类型</li>
+<li>del &lt;key&gt;：删除键</li>
+<li>expire &lt;key&gt;  &lt;seconds&gt;：为键值设置过期时间，单位为秒</li>
+<li>ttl &lt;key&gt;：查看还有多少秒过期，-1为永不过期，-2为已过期。</li>
+<li>dbsize：查看当前数据库key的数量</li>
+<li>Flushdb：清空当前数据库</li>
+<li>Flushall：通杀全部库</li>
+</ul>
+<h3 id="33-string">3.3 String</h3>
+<p>String类型是二进制安全的，意味着Redis的String可以包含任何数据，比如jpg图片或者序列化的对象。最多可以是512M。</p>
+<ul>
+<li>get &lt;key&gt;：查询对应键值</li>
+<li>set &lt;key&gt; &lt;value&gt;：添加键值对</li>
+<li>append &lt;key&gt; &lt;value&gt;：将给定的键值后面追加</li>
+<li>strlen &lt;key&gt;：获取值的长度</li>
+<li>setnx &lt;key&gt; &lt;value&gt;：只有在键不存在的时候才会赋值。</li>
+<li>incr &lt;key&gt;：将key中存储的数字值增1，只能对数字值操作</li>
+<li>decr &lt;key&gt; ：将key中存储的数字值减1，只能对数字值操作</li>
+<li>incrby/decrby &lt;key&gt; &lt;步长&gt;：将key中存储的数字值增/减步长，只能对数字值操作</li>
+<li>mset &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; &lt;key3&gt; &lt;value3&gt;：同时设置多个键值对</li>
+<li>mget &lt;key1&gt; &lt;key2&gt; ：同时获取多个value</li>
+<li>msetnx &lt;key1&gt; &lt;value1&gt; &lt;key2&gt; &lt;value2&gt; &lt;key3&gt; &lt;value3&gt;：当且仅当所有key都不存在时，同时设置多个键值对</li>
+<li>getrange &lt;key&gt; &lt;起始位置&gt; &lt;结束位置&gt;：获得值的范围，闭区间，类似于substring（包前不包后，左闭右开）</li>
+<li>setrange &lt;key&gt; &lt;起始位置&gt; &lt;value&gt;：从起始位置开始用value覆写key所存储的字段。</li>
+<li>setex &lt;key&gt; &lt;过期时间&gt; &lt;value&gt;：在设置键值的同时设置过期时间。</li>
+<li>getset &lt;key&gt; &lt;value&gt;：设置新值的同时获得旧值。</li>
+</ul>
+<h3 id="34-list">3.4 List</h3>
+<blockquote>
+<p>单键多值。也只能存储string。底层是个双向链表，对两端操作性能很高，通过索引下标的操作中间的节点性能会较差。</p>
+</blockquote>
+<ul>
+<li>
+<p>lpush/rpush &lt;key&gt; &lt;value1&gt; &lt;value2&gt; &lt;value3&gt;：从左边/右边插入一个或多个值。</p>
+</li>
+<li>
+<p>lpop/rpop &lt;key&gt;：从左边/右边吐出一个数据，值在键在，值亡键亡。</p>
+</li>
+<li>
+<p>rpoplpush &lt;key1&gt; &lt;key2&gt; ：从&lt;key1&gt;的列表右边吐出一个值插到&lt;key2&gt;列表左边。</p>
+</li>
+<li>
+<p>lrange &lt;key&gt; &lt;start&gt; &lt;stop&gt;：按照索引下标获得元素，从左到右。-1代表最后一个元素。</p>
+<pre><code class="language-shell">lrange testList 0 -1 # 从表头查到表尾
+</code></pre>
+</li>
+<li>
+<p>lindex &lt;key&gt; &lt;index&gt;：按照索引下标获得元素，从左到右。</p>
+</li>
+<li>
+<p>llen &lt;key&gt;：获得列表长度。</p>
+</li>
+<li>
+<p>linsert &lt;key&gt; before/after &lt;value&gt; &lt;newvalue&gt;：在某个值之前/后面插入新的值。</p>
+</li>
+<li>
+<p>irem &lt;key&gt; &lt;n&gt; &lt;value&gt;：从左边删除n个value，0代表删除所有，负整数代表从右往左删，正整数代表从左往右删。</p>
+</li>
+</ul>
+<h3 id="35-set">3.5 Set</h3>
+<blockquote>
+<p>string类型的无序不可重复集合。底层是一个value为null的hash表。</p>
+</blockquote>
+<ul>
+<li>sadd  &lt;key&gt; &lt;value1&gt; &lt;value2&gt; &lt;value3&gt;：将一个或多个元素加入到集合key中，已经存在的将被忽略。</li>
+<li>smembers  &lt;key&gt;：取出该集合的所有值</li>
+<li>sismember  &lt;key&gt; &lt;value&gt;：判断key中是否含有该value值。有1无0.</li>
+<li>scard  &lt;key&gt;：返回元素个数。</li>
+<li>srem  &lt;key&gt; &lt;value1&gt; &lt;value2&gt; &lt;value3&gt;：删除集合中的一个或多个元素。</li>
+<li>spop  &lt;key&gt; ：随机从该集合中吐出一个值。</li>
+<li>srandmember &lt;key&gt; &lt;n&gt;：随机从集合中取出n个值，不会从集合中删除。</li>
+<li>sinter  &lt;key1&gt; &lt;key2&gt;：返回两个集合的交集元素。</li>
+<li>sunion &lt;key1&gt; &lt;key2&gt;：返回两个集合的并集元素。</li>
+<li>sdiff &lt;key1&gt; &lt;key2&gt;：返回两个集合的差集元素。</li>
+</ul>
+<h3 id="36-hash">3.6 Hash</h3>
+<blockquote>
+<p>hash是一个键值对集合。类似于Map&lt;String,String&gt;。</p>
+</blockquote>
+<ul>
+<li>hset &lt;key&gt; &lt;field&gt; &lt;value&gt;：给key集合中的field键赋值value。</li>
+<li>hget  &lt;key&gt; &lt;field&gt; ：从key几何field中取出value。</li>
+<li>hmset  &lt;key&gt; &lt;field1&gt;  &lt;value1&gt; &lt;field2&gt; &lt;value2&gt; ：批量设置hash的值。</li>
+<li>hsetnx &lt;key&gt; &lt;field&gt; &lt;value&gt;：将哈希表key中的域field的值设置为value，当且仅当该field不存在。</li>
+<li>hexists &lt;key&gt; &lt;field&gt;：查看hash表key中，给定域field是否存在。</li>
+<li>hkeys &lt;key&gt;：列出该hash集合的所有field。</li>
+<li>hvals &lt;key&gt;：列出该hash集合的所有value。</li>
+<li>hincrby &lt;key&gt; &lt;field&gt; &lt;increment&gt;：为哈希表key中的域field的值加上增量increment。</li>
+</ul>
+<pre><code class="language-shell">redis-cli --raw #显示中文
+</code></pre>
+<h3 id="37-zset">3.7 Zset</h3>
+<blockquote>
+<p>有序不可重复集合，每个成员都关联了一个评分（score），按照评分从低到高排序，评分可以重复、</p>
+</blockquote>
+<ul>
+<li>zadd &lt;key&gt; &lt;score1&gt; &lt;value1&gt; &lt;score2&gt; &lt;value2&gt;：将一个或多个member元素及其score值加入到有序集key中。添加已存在的元素会把分数替换掉。</li>
+<li>zrange &lt;key&gt; &lt;start&gt; &lt;stop&gt; [WITHSCORES]：返回有序集key中下标在start-stop之间的元素，带withscores，可以让分数一起和值返回到结果集。</li>
+<li>zrangebyscore &lt;key&gt; &lt;min&gt; &lt;max&gt; [WITHSCORES] [LIMIT] ：通过分数返回有序集合指定区间内的成员。</li>
+<li>zrevrangebyscore &lt;key&gt; &lt;max&gt; &lt;min&gt; [WITHSCORES] [LIMIT] ：同上，按从大到小排列。</li>
+<li>zincrby &lt;key&gt; &lt;increment&gt; &lt;value&gt;：为元素的score加上增量。</li>
+<li>zrem  &lt;key&gt; &lt;value&gt;：删除该集合下指定值的元素。</li>
+<li>zcount  &lt;key&gt; &lt;min&gt; &lt;max&gt;：统计该集合分数区间内的元素个数。</li>
+<li>zrank &lt;key&gt; &lt;value&gt;：返回该值在集合中的排名，从0开始。</li>
+</ul>
+<h2 id="四-redis相关配置">四、Redis相关配置</h2>
+<ul>
+<li>计量单位说明</li>
+<li>大小写不敏感</li>
+<li>include：多实例的情况，把其他配置文件引入</li>
+<li>bind：ip地址的绑定，默认情况只允许本机访问，不写的情况下则无限制接受任何IP地址的访问，但在没有设密码的情况下需要关闭protected-mode。</li>
+<li>tcp-backlog：一个请求到达后直到接受进程处理前的队列。</li>
+<li>timeout：一个空闲的客户端维持多少秒会关闭，0为永不关闭。</li>
+<li>TCP keepalive：对访问客户端的一种心跳检测，每隔n秒检测一次。官方推荐设置60秒。</li>
+<li>daemonize：是否为后台进程。</li>
+<li>pidfile：存放pid文件的位置。</li>
+<li>log level：日志级别。</li>
+<li>logfile：日志文件名称。</li>
+<li>database：设定库的数量。</li>
+<li>security：在命令行设置密码。</li>
+<li>maxclient：最大客户端连接数。</li>
+<li>maxmemory：设置可以使用的内存量。</li>
+</ul>
+<h2 id="五-jedis">五、Jedis</h2>
+<blockquote>
+<p>Jedis是Java连接Redis的工具。</p>
+</blockquote>
+<ol>
+<li>
+<p>引入依赖</p>
+<pre><code class="language-xml">        &lt;dependency&gt;
+            &lt;groupId&gt;redis.clients&lt;/groupId&gt;
+            &lt;artifactId&gt;jedis&lt;/artifactId&gt;
+            &lt;version&gt;3.3.0&lt;/version&gt;
+        &lt;/dependency&gt;
+</code></pre>
+</li>
+<li>
+<p>编写代码</p>
+<pre><code class="language-java">public class TestJedis {
+
+    public static void main(String[] args) {
+        Jedis jedis = new Jedis(&quot;119.23.208.64&quot;, 6379);
+        String ping = jedis.ping();
+        System.out.println(ping);
+        jedis.set(&quot;a&quot;, &quot;abc&quot;);
+        jedis.close();
+    }
+}
+</code></pre>
+</li>
+</ol>
+<p><code>注意在连接时需要把配置文件中的bind注释掉，并且protected-mode设置为no</code></p>
+<h2 id="六-redis事务">六、Redis事务</h2>
+<blockquote>
+<p>Redis事务的主要作用就是串联多个命令防止其他的命令插队。</p>
+</blockquote>
+<h3 id="61-multi-exec-discard">6.1 Multi、Exec、Discard</h3>
+<p>从输入Multi命令开始，输入的命令都会依次进入命令队列中，但不会执行，直到输入Exec后，Redis会将之前的命令队列中的命令依次执行，组队的过程中可以通过Discard来放弃组队。</p>
+<h3 id="62-事务的错误处理">6.2 事务的错误处理</h3>
+<p>组队中出现了报告错误以后，执行时整个队列都会被取消。</p>
+<p>执行时出现错误，则只有报错的命令不会被执行，而其他的命令都会执行，不会回滚。</p>
+<h3 id="63-watch-key">6.3 WATCH &lt;key&gt;</h3>
+<p>在执行MUTLI之前，先执行watch可以监视一个或多个key，如果在事务执行之前，这些key被其他命令改动，则事务将会被打断。</p>
+<h3 id="64-三个特性">6.4 三个特性</h3>
+<ul>
+<li>单独的隔离操作</li>
+<li>没有隔离级别的概念</li>
+<li>不保证原子性</li>
+</ul>
+<h2 id="七-redis持久化">七、Redis持久化</h2>
+<p>Redis提供了2个不同形式的持久化方式。</p>
+<ul>
+<li>RDB （Redis DataBase）</li>
+<li>AOF （Append Of File）</li>
+</ul>
+<h3 id="71-rdb">7.1 RDB</h3>
+<p>在指定的时间间隔内将内存中的数据集快照写入磁盘。快照文件默认被存储在当前文件夹中，名称为<code>dump.rdb</code>，可以通过dir和dbfilename参数来修改默认值。Redis会单独创建（fork）一个子进程来进行持久化，会先将数据写入到一个临时文件中，待持久化过程都结束了，再用这个临时文件替换上次持久化好的文件。 整个过程中，主进程是不进行任何的IO操作的，这就确保了极高的性能。</p>
+<ul>
+<li>
+<p>Fork</p>
+<p>fork的作用相当于复制一个与当前进程一样的进程。但是是一个全新的进程，并作为原进程的子进程</p>
+</li>
+<li>
+<p>配置文件</p>
+<pre><code class="language-conf"># redis是基于内存的数据库，可以通过设置该值定期写入磁盘。 
+# 注释掉“save”这一行配置项就可以让保存数据库功能失效 
+# 900秒（15分钟）内至少1个key值改变（则进行数据库保存--持久化）
+# 300秒（5分钟）内至少10个key值改变（则进行数据库保存--持久化） 
+# 60秒（1分钟）内至少10000个key值改变（则进行数据库保存--持久化） 
+save 900 1 
+save 300 10 
+save 60 10000 
+
+#当RDB持久化出现错误后，是否依然进行继续进行工作，yes：不能进行工作，no：可以继续进行工作，可以通过info中的rdb_last_bgsave_status了解RDB持久化是否有错误 
+stop-writes-on-bgsave-error yes 
+
+#使用压缩rdb文件，rdb文件压缩使用LZF压缩算法，yes：压缩，但是需要一些cpu的消耗。no：不压缩，需要更多的磁盘空间 
+rdbcompression yes 
+
+#是否校验rdb文件。从rdb格式的第五个版本开始，在rdb文件的末尾会带上CRC64的校验和。这跟有利于文件的容错性，但是在保存rdb文件的时候，会有大概10%的性能损耗，所以如果你追求高性能，可以关闭该配置。 
+rdbchecksum yes
+
+#rdb文件的名称 
+dbfilename dump.rdb 
+
+#数据目录，数据库的写入会在这个目录。rdb、aof文件也会写在这个目录 
+dir /data
+
+</code></pre>
+</li>
+<li>
+<p>触发条件</p>
+<ol>
+<li>通过配置文件中的save条件</li>
+<li>手动通过save和bgsave命令
+<ul>
+<li>save：save时只管保存，其他不管，全部阻塞</li>
+<li>bgsave：redis会在后台异步的进行快照操作，同时还可以响应客户端请求。可以通过lastsave命令获取最后一次成功执行快照的事件</li>
+</ul>
+</li>
+<li>通过flushall命令，也会产生dump.rdb文件，但是里面是空的，无意义。</li>
+<li>通过shutdown命令，安全退出，也会生成快照文件（和异常退出形成对比，比如：kill杀死进程的方式）</li>
+</ol>
+</li>
+<li>
+<p>如何恢复</p>
+<pre><code class="language-conf">appendonly no 
+dbfilename dump.rdb 
+dir /var/lib/redis #可以自行指定
+
+</code></pre>
+<p><code>appendonly 设置成no</code>，redis启动时会把/var/lib/redis 目录下的dump.rdb 中的数据恢复。dir 和dbfilename 都可以设置。我测试时<code>appendonly 设置成yes 时候不会将dump.rdb文件中的数据恢复</code>。</p>
+</li>
+<li>
+<p>优劣势</p>
+<ol>
+<li>
+<p>优势</p>
+<blockquote>
+<ol>
+<li>
+<p>恢复数据的速度很快，适合大规模的数据恢复，而又对部分数据不敏感的情况</p>
+</li>
+<li>
+<p>dump.db文件是一个压缩的二进制文件，文件占用空间小</p>
+</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>劣势</p>
+<blockquote>
+<ol>
+<li>
+<p>当出现异常退出时，会丢失最后一次快照后的数据</p>
+</li>
+<li>
+<p>当fork的时候，内存的中的数据会被克隆一份，大致两倍的膨胀需要考虑。而且，当数据过大时，fork操作占用过多的系统资源，造成主服务器进程假死。</p>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="72-aof">7.2 AOF</h3>
+<p>以日志的形式来记录每个写操作，将Redis执行过的所有写指令记录下来（读操作补不可记录），只许追加文件但不可以改写文件，redis启动之初会读取改文件重新构建数据。保存的是appendonly.aof文件。AOF机制默认关闭，可以通过<code>appendonly = yes</code>参数开启aof机制，通过<code>appendfilename = myaoffile.aof</code>指定aof文件名称。</p>
+<ul>
+<li>
+<p>如何恢复</p>
+<ol>
+<li>
+<p>正常恢复</p>
+<p>将文件放到dir指定的文件夹下，当redis启动的时候会自动加载数据，注意：<code>aof文件的优先级比dump大</code>。</p>
+</li>
+<li>
+<p>异常恢复</p>
+<ul>
+<li>
+<p>有些操作可以直接到appendonly.aof文件里去修改。</p>
+<p>eg：使用了flushall这个命令，此刻持久化文件中就会有这么一条命令记录，把它删掉就可以了</p>
+</li>
+<li>
+<p>写坏的文件可以通过 <code>redis-check-aof --fix</code>进行修复</p>
+</li>
+</ul>
+</li>
+</ol>
+</li>
+<li>
+<p>同步频率</p>
+<ul>
+<li>始终同步</li>
+<li>每秒同步</li>
+<li>把同步时机交给操作系统</li>
+</ul>
+<pre><code class="language-conf">#aof持久化策略的配置 
+#no表示不执行fsync，由操作系统保证数据同步到磁盘，速度最快。 
+#always表示每次写入都执行fsync，以保证数据同步到磁盘。
+#everysec表示每秒执行一次fsync，可能会导致丢失这1s数据。 
+appendfsync everysec
+</code></pre>
+</li>
+<li>
+<p>Rewrite</p>
+<p>AOF采用文件追加的方式，文件会越来越大，可以通过这个命令进行重写，Redis会自动压缩到可以恢复数据的最小指令集。使用命令bgrewriteaof。</p>
+<pre><code class="language-conf"># aof自动重写配置。
+# 当目前aof文件大小超过上一次重写的aof文件大小的百分之多少进行重写，即当aof文件增长到一定大小的时候Redis能够调用bgrewriteaof对日志文件进行重写。当前AOF文件大小是上次日志重写得到AOF文件大小的二倍（设置为100）时，自动启动新的日志重写过程。 
+auto-aof-rewrite-percentage 100 
+# 设置允许重写的最小aof文件大小，避免了达到约定百分比但尺寸仍然很小的情况还要重写 
+auto-aof-rewrite-min-size 64mb
+
+</code></pre>
+</li>
+<li>
+<p>优劣点</p>
+<ol>
+<li>优点
+<ul>
+<li>备份机制更稳健，丢失数据概率更低。</li>
+<li>可读性强。</li>
+</ul>
+</li>
+<li>缺点
+<ul>
+<li>占用更多的磁盘空间</li>
+<li>恢复备份速度慢</li>
+<li>有性能压力</li>
+<li>存在bug</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="八-redis主从复制">八、Redis主从复制</h2>
+<p>主机数据更新后根据配置和策略，自动同步到备机的master/slaver机制，Master以写为主，Slave以读为主。</p>
+<h3 id="81-用处">8.1 用处</h3>
+<ul>
+<li>读写分离，性能扩展</li>
+<li>容灾快速恢复</li>
+</ul>
+<h3 id="82-配置">8.2 配置</h3>
+<p>配从不配主。</p>
+<ul>
+<li>从服务器配置
+<ul>
+<li>拷贝多个redis.conf文件include</li>
+<li>开启daemonize yes</li>
+<li>pid文件名字</li>
+<li>指定端口</li>
+<li>Log文件名字</li>
+<li>RDB名字</li>
+<li>appendonly关掉或者换名字</li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-conf">#配置从库
+slaveof 主库ip 主库端口
+#查看主从信息
+info replication
+</code></pre>
+<p>每次与master断开后，都需要重新连接，除非你配置进redis.conf文件。</p>
+<h3 id="83-注意点">8.3 注意点</h3>
+<ol>
+<li>与主服务器建立连接是全量复制，之后是增量复制</li>
+<li>主机可以写，但是从机不可以写，从机只能读</li>
+<li>主机shutdowm后从机待机状态，等主机回来后，主机新增记录从机可以顺利复制</li>
+</ol>
+<h3 id="84-薪火相传">8.4 薪火相传</h3>
+<p>含义:就是上一个Slave可以是下一个slave的Master，Slave同样可以接收其他slaves的连接和同步请求，那么该slave作为了链条中下一个的master,可以有效减轻master的写压力。</p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2020/07/04/IucMFaidq7eGLB1.png" alt="薪火相传" loading="lazy"></figure>
+<p>注意事项和一主二仆差不多,但注意虽然有slave是相对master，但是依然是slave。</p>
+<h3 id="85-反客为主">8.5 反客为主</h3>
+<pre><code class="language-shell">SLAVEOF no one
+</code></pre>
+<p>使当前数据库停止与其他数据库的同步，转成主数据库。</p>
+<h3 id="86-哨兵模式sentinel">8.6 哨兵模式（sentinel）</h3>
+<p>反客为主的自动版，能够后台监控Master库是否故障，如果故障了根据投票数自动将slave库转换为主库。一组sentinel能同时监控多个Master。</p>
+<p><strong>使用步骤</strong></p>
+<ol>
+<li>
+<p>在Master对应redis.conf同目录下新建sentinel.conf文件。</p>
+</li>
+<li>
+<p>配置哨兵，在sentinel.conf文件中填入内容(可以配置多个)：</p>
+<pre><code class="language-conf">#说明：最后一个数字1，表示主机挂掉后slave投票看让谁接替成为主机，得票数多少后成为主机。 
+sentinel monitor 被监控数据库名字（自己起名字） ip port 1
+</code></pre>
+<p>选择条件依次为：</p>
+<ol>
+<li>优先级靠前的</li>
+<li>偏移量最大的</li>
+<li>runid最小的</li>
+</ol>
+</li>
+<li>
+<p>启动哨兵模式</p>
+<pre><code class="language-shell">redis-sentinel  /myredis/sentinel.conf
+</code></pre>
+</li>
+</ol>
+<p>注意：</p>
+<ol>
+<li>当master挂掉后，会通过选票进行选出下一个master。而且只有使用了sentinel.conf启动的才能开启选票。</li>
+<li>当原来的master回来后，很不幸变成了slave。</li>
+</ol>
+<h2 id="九-redis集群">九、Redis集群</h2>
+<p>Redis集群实现了对Redis的水平扩容，即启动N个redis节点，将整个数据库分布存储在这N个节点中，每个节点存储总数据的1/N</p>
+<p>Redis集群通过分区（partition）来提供一定程度的可用性（availability）：即使集群中有一部分节点失效或者无法进行通讯，集群也可以继续处理命令请求。</p>
+<p><strong>JedisCluster</strong></p>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="donateContainer">
+                <span class="donatebtn">赏</span>
+            </div>
+            <div class="donateContainer">
+                <img src="https://i.loli.net/2020/08/14/WRwCGfILpX3j5gS.png" alt="" class="donate">
+            </div>
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong>X2</li>
+            <li><strong>原文链接：</strong>https://codingbear.top/redis/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+            <div class="shareContainer">
+                <div class="share" style="height:30px;background: white;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qqs.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/wechats.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/weibos.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qzones.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/doubans.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/facebooks.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
+            
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://codingbear.top/change/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    <img src="https://codingbear.top/变.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">Tizzy T/Jony J - 变</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://codingbear.top/change/">Tizzy T/Jony J - 变</a>
+            </div>
+            
+            
+            <a data-pjax class="next-post-pc" href="https://codingbear.top/beijingwanbao/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    <img src="https://i.loli.net/2020/08/14/yhx4gqLRCBEAub7.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">阴三儿 - 北京晚报</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://codingbear.top/beijingwanbao/">阴三儿 - 北京晚报</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E4%B8%80-nosql%E5%85%A5%E9%97%A8%E5%92%8C%E6%A6%82%E8%BF%B0">一、NoSql入门和概述</a>
+<ul>
+<li><a href="#%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">适用场景</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98%E6%95%B0%E6%8D%AE%E5%BA%93">缓存数据库</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-redis%E5%AE%89%E8%A3%85">二、Redis安装</a>
+<ul>
+<li><a href="#21-%E6%AD%A5%E9%AA%A4">2.1 步骤</a></li>
+<li><a href="#22-%E7%9B%AE%E5%BD%95%E4%BB%8B%E7%BB%8D">2.2 目录介绍</a></li>
+<li><a href="#23-%E5%90%AF%E5%8A%A8redis">2.3 启动Redis</a></li>
+<li><a href="#24-%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86">2.4 相关知识</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89-redis%E5%9F%BA%E6%9C%AC%E6%8C%87%E4%BB%A4">三、Redis基本指令</a>
+<ul>
+<li><a href="#31-redis%E4%BA%94%E5%A4%A7%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B">3.1 Redis五大数据类型</a></li>
+<li><a href="#32-key">3.2 key</a></li>
+<li><a href="#33-string">3.3 String</a></li>
+<li><a href="#34-list">3.4 List</a></li>
+<li><a href="#35-set">3.5 Set</a></li>
+<li><a href="#36-hash">3.6 Hash</a></li>
+<li><a href="#37-zset">3.7 Zset</a></li>
+</ul>
+</li>
+<li><a href="#%E5%9B%9B-redis%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE">四、Redis相关配置</a></li>
+<li><a href="#%E4%BA%94-jedis">五、Jedis</a></li>
+<li><a href="#%E5%85%AD-redis%E4%BA%8B%E5%8A%A1">六、Redis事务</a>
+<ul>
+<li><a href="#61-multi-exec-discard">6.1 Multi、Exec、Discard</a></li>
+<li><a href="#62-%E4%BA%8B%E5%8A%A1%E7%9A%84%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">6.2 事务的错误处理</a></li>
+<li><a href="#63-watch-key">6.3 WATCH &lt;key&gt;</a></li>
+<li><a href="#64-%E4%B8%89%E4%B8%AA%E7%89%B9%E6%80%A7">6.4 三个特性</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%83-redis%E6%8C%81%E4%B9%85%E5%8C%96">七、Redis持久化</a>
+<ul>
+<li><a href="#71-rdb">7.1 RDB</a></li>
+<li><a href="#72-aof">7.2 AOF</a></li>
+</ul>
+</li>
+<li><a href="#%E5%85%AB-redis%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6">八、Redis主从复制</a>
+<ul>
+<li><a href="#81-%E7%94%A8%E5%A4%84">8.1 用处</a></li>
+<li><a href="#82-%E9%85%8D%E7%BD%AE">8.2 配置</a></li>
+<li><a href="#83-%E6%B3%A8%E6%84%8F%E7%82%B9">8.3 注意点</a></li>
+<li><a href="#84-%E8%96%AA%E7%81%AB%E7%9B%B8%E4%BC%A0">8.4 薪火相传</a></li>
+<li><a href="#85-%E5%8F%8D%E5%AE%A2%E4%B8%BA%E4%B8%BB">8.5 反客为主</a></li>
+<li><a href="#86-%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8Fsentinel">8.6 哨兵模式（sentinel）</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B9%9D-redis%E9%9B%86%E7%BE%A4">九、Redis集群</a></li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                                    
+        <div id="vcomments">
+        </div>
+        <script>
+            var valine = new Valine();
+            var curpath = window.location.pathname;
+            if (curpath[curpath.length - 1] != '/')
+                curpath += '/'
+            valine.init({
+                el: '#vcomments',
+                appId: 'aRJEq7MuzWMOwkGw2E7cTb0o-MdYXbMMI',
+                appKey: 'VU9tLRGs04JCbYMJJWUCiz7H',
+                notify: true,
+                verify: false,
+                avatar: 'retro',
+                pageSize: 10,
+                placeholder: '既然来了，何不畅所欲言呢？',
+                recordIP: true,
+                path: curpath //[重点] 记得添加path路径
+            });
+        </script>
+        <script type="text/javascript">
+            var jrsc = '既然来了，何不畅所欲言呢？';
+            jinrishici.load(function (result) {
+                // 自己的处理逻辑
+                jrsc = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
+                    .dynasty + " · " + result.data.origin.author;
+            });
+        </script>
+
+
+                                    <div class="clear"></div>
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+            <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+
+<body>
+    <div class="miniMode">
+        <meting-js id="myaplayer" server="netease" type="playlist" fixed="true" order="default" muted="muted">
+        </meting-js>
+    </div>
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script>
+    function aplayerInit() {
+        var aplayerid = "7677433291";
+        var aplayerserver = "tencent";
+        var aplayerorder = "random";
+        var aplayerautoplay = "true";
+        var aplayer = $("#myaplayer");
+        aplayer.attr("server", aplayerserver);
+        aplayer.attr("id", aplayerid);
+        aplayer.attr("order", aplayerorder);
+        if (aplayerautoplay == "true")
+            aplayer.attr("autoplay", "true");
+    }
+    aplayerInit();
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/Aplayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<script>
+    function aplayerbtnInit() {
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        if(player==undefined)return false;
+        player.lrc.hide();
+        var mbabtn = $("#mbaplayer");
+        if (player.paused == false) {
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        } else {
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+
+    function aplayerPlay() {
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        var mbabtn = $("#mbaplayer");
+        if (player.paused == true) {
+            player.play();
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        } else {
+            player.pause();
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+</script>
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    
+
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">link
+                </div>
+                
+                <div id="bgurl" style="display:none">https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    imglazyloadinit()
+    lazyload();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/live2d.js"></script>
+<script type="text/javascript" src="https://codingbear.top/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://codingbear.top/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = $('#bgchoice').html();
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+    bg.css("background", "url('" + bgurl + "')");
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://codingbear.top/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://codingbear.top/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->

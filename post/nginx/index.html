@@ -1,0 +1,1273 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="description" content="
+1. 基本概念
+Nginx（“engine X”）是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，在BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上nginx的并发能力在同类型的..." />
+    <meta name="keywords" content="Nginx" />
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>琢钰</title>
+    
+    <style>
+        .markdownIt-TOC {
+            padding-left: 2px;
+            width: 100%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 2%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="codeCopyText" style="display: none">代码复制成功了哦</div>
+    <div id="domainname" style="display:none">https://codingbear.top</div>
+    <!-- 响应式布局，针对PC端内容显示 -->
+    <div id="content">
+        <div>
+            <div id="bar">
+                <head>
+  <!-- 引入Bootstrap核心样式文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/bootstrap.min.css">
+</head>
+<style>
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+  @media screen and (max-width:768px){
+    .mbapspan{
+      padding: 0;
+    }
+  }
+</style>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+          aria-expanded="false" id="barbutton">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="https://codingbear.top">琢钰&nbsp;&nbsp;|</a>
+        <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+            style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="barmenu">
+        <ul class="nav navbar-nav">
+          
+          
+          <li>
+            <a href="/">
+              首页
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/archives">
+              归档
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags">
+              标签
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/post/about">
+              关于
+            </a>
+          </li>
+          
+          
+          
+          <li><a href="https://codingbear.top/talk">说说</a></li>
+          
+          
+          <li><a href="https://codingbear.top/friends">友链</a></li>
+
+          
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+  var btstate = false;
+  var bt = $("#barbutton");
+  var bm = $("#barmenu");
+  bt.click(function(){
+    dropdown();
+  })
+  function dropdown(){
+    console.log(btstate);
+    //下拉
+    if(btstate==false){
+      bt.removeClass("collapsed");
+      bt.attr("aria-expanded","true");
+      bm.attr("aria-expanded","true")
+      bm.fadeIn(700);
+      btstate = true;
+    }
+    else{
+      bt.addClass("collapsed");
+      bt.attr("aria-expanded","false");
+      bm.removeClass("in");
+      bm.hide();
+      bm.attr("aria-expanded","false");
+      btstate = false;
+    }
+  }
+  </script> 
+</body>
+            </div>
+            <div class="row">
+                <div class="side"><body>
+    
+
+
+
+    
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="https://codingbear.top"
+                    style="font-size:21px">琢钰&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+                <a class="navbar-brand" href=""
+                    style="font-size:15px;font-family:kaiti">玉不琢，不成器。人不学，不知义。</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                
+                <div class="search nav navbar-nav" style="margin-top:8px">
+                    <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+                    <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+                    <div class="search-results"></div>
+                </div>
+                
+                <div class="search nav navbar-nav searchtop">
+                <a title="text" onclick="document.getElementById('socialMenu').style.display='block'"><i><img class="social"
+                    src="https://codingbear.top/media/images/social.png" alt=""></i></a>
+            </div>
+            <ul class="nav navbar-nav" style="float: right;margin-right:5%">
+                
+                
+                <li>
+                    <a href="/" style="color:white">
+                        首页
+                    </a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/archives" style="color:white">
+                        归档
+                    </a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/tags" style="color:white">
+                        标签
+                    </a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/post/about" style="color:white">
+                        关于
+                    </a>
+                </li>
+                
+                
+                
+                <li><a href="https://codingbear.top/talk" style="color:white;">说说</a></li>
+                
+                  
+                <li><a href="https://codingbear.top/friends" style="color:white">友链</a></li>
+                
+                  <li><img src="https://codingbear.top/images/avatar.png?v=1601730596414" alt=""
+                class="menutopavatar"></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="socialMenu">
+        <div class="animate">
+            <div class="socialContainer">
+                
+                <a href="https://github.com/godbear329" target="_blank"><i style="font-size: 40px;"><img class="icon "
+                            src="https://codingbear.top/media/images/github.png" alt=""></i></a>
+                
+                
+                <a onclick="showqq()" style="cursor:pointer"><i style="font-size: 40px;"><img class="icon" src="https://codingbear.top/media/images/QQ.png"
+                            alt=""></i></a>
+                
+                
+                <a href="https://www.zhihu.com/people/xmy0329" target="_blank"><i style="font-size: 40px;"><img class="icon"
+                            src="https://codingbear.top/media/images/zh.png" alt=""></i></a>
+                
+                
+                <a href="https://space.bilibili.com/37977624" target="_blank"><i style="font-size: 40px;"><img class="icon"
+                            src="https://codingbear.top/media/images/bilibili.png" alt=""></i></a>
+                
+                
+                
+                <a href="https://steamcommunity.com/id/xmy0329/" target="_blank"><i style="font-size: 40px;"><img class="icon"
+                            src="https://codingbear.top/media/images/steam.png" alt=""></i></a>
+                
+            </div>
+            <div id="qq" style="display:none">254716908</div>
+        </div>
+    </div>
+    <!-- 引入jQuery核心js文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script>
+        var social = document.getElementById('socialMenu');
+        // 鼠标点击模型外区域关闭登录框
+        window.onclick = function (event) {
+            if (event.target == social) {
+                social.style.display = "none";
+            }
+        }
+    </script>
+    
+</body>
+<script>
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    var searchInput = document.querySelector('.search-input');
+    var searchResults = document.querySelector('.search-results');
+
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+    // ajax 的兼容写法
+    var xhr = new XMLHttpRequest() || new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            xml = xhr.responseXML;
+            arrItems = xml.getElementsByTagName('entry');
+            itemLength = arrItems.length;
+            // 遍历并保存所有文章对应的标题、链接、内容到对应的数组中
+            // 同时过滤掉 HTML 标签
+            for (i = 0; i < itemLength; i++) {
+                var link = arrItems[i].getElementsByTagName('link')[0];
+                arrLinks[i] = link.getAttribute("href");
+                arrTitles[i] = arrItems[i].getElementsByTagName('title')[0].
+                childNodes[0].nodeValue.replace(/<.*?>/g, '');
+            }
+        }
+    }
+
+    // 开始获取根目录下 feed.xml 文件内的数据
+    xhr.open('get', '/atom.xml', true);
+    xhr.send();
+
+
+
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            if (arr1[i].search(input) !== -1) {
+                var arr = arr1;
+                indexItem.push(i); // 保存匹配值的索引
+                var indexContent = arr[i].search(input);
+                // 此时 input 为 RegExp 格式 /input/i，转换为原 input 字符串长度
+                var l = input.toString().length - 3;
+                var step = 10;
+
+                // 将匹配到内容的地方进行黄色标记，并包括周围一定数量的文本
+                arrResults.push(arr[i].slice(indexContent - step, indexContent));
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<b>[' + arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + "</p><hr />";
+            itemDiv.setAttribute('onclick', 'changeHref(arrLinks[indexItem[' + i + ']])');
+            searchResults.appendChild(itemDiv);
+        }
+    }
+
+    function changeHref(href) {
+        location.href = href;
+    }
+
+    function showqq() {
+        var qq = document.getElementById("qq").innerHTML;
+        if (qq != '')
+            window.location.href = "tencent://message/?uin=" + qq + "&Site=&Menu=yes";
+        else
+            alert("博主暂未设置QQ联系方式");
+    }
+</script>
+</div>
+                
+            <div class="col-md-2 col-lg-3"></div>
+            <div id="postmain" class="col-xs-12 col-sm-12 col-md-8  col-lg-6 posttop" >
+                <link rel="stylesheet" href="https://codingbear.top/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg" style="width:100%;overflow: hidden;">
+                <img src="https://i.loli.net/2020/06/24/ypIkrYXMLvotbq7.jpg" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2020-08-09</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 7 min read</div>
+                <div class="posttag">
+                    
+                    <a href="https://codingbear.top/tag/N85lmekFZ/" class="postlink">
+                        <i class="fa fa-tag"></i> Nginx
+                    </a>
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2>Nginx</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://codingbear.top/post/nginx/</div>
+                <div id="rootaddr" style="display:none">https://codingbear.top</div>
+                <span id="hotnum">
+                    <h4><i class="fa fa-eye" aria-hidden="true" style="color: #FF8C00;"></i>&nbsp;&nbsp;热度</i>: <i
+                            class="hotnum">loading...</i></h4>
+                </span>
+            </div>
+            <div class="text ">
+                <figure data-type="image" tabindex="1"><img src="https://i.loli.net/2020/06/24/ypIkrYXMLvotbq7.jpg" alt="img" loading="lazy"></figure>
+<h2 id="1-基本概念">1. 基本概念</h2>
+<p>Nginx（“engine X”）是一款轻量级的Web 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器，在BSD-like 协议下发行。其特点是占有内存少，并发能力强，事实上nginx的并发能力在同类型的网页服务器中表现较好，中国大陆使用nginx网站用户有：百度、京东、新浪、网易、腾讯、淘宝等。</p>
+<ul>
+<li>
+<p>反向代理</p>
+<p>反向代理服务器位于用户与目标服务器之间，但是对于用户而言，反向代理服务器就相当于目标服务器，即用户直接访问反向代理服务器就可以获得目标服务器的资源。同时，用户不需要知道目标服务器的地址，也无须在用户端作任何设定。反向代理服务器通常可用来作为Web加速，即使用反向代理作为Web服务器的前置机来降低网络和服务器的负载，提高访问效率。</p>
+</li>
+<li>
+<p>负载均衡</p>
+<p>负载均衡（Load Balance）其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务。</p>
+</li>
+<li>
+<p>动静分离</p>
+<p>动态资源(jsp、ftl、thymeleaf)与静态资源(js、css、img)分开部署。</p>
+</li>
+</ul>
+<h2 id="2-nginx安装">2. Nginx安装</h2>
+<ol>
+<li>
+<p>安装编译工具及库文件</p>
+<pre><code class="language-shell">yum -y install gcc pcre-devel zlib-devel openssl openssl-devel
+</code></pre>
+</li>
+<li>
+<p>官网下载Nginx压缩包</p>
+</li>
+<li>
+<p>移动到/usr/local/下</p>
+</li>
+<li>
+<p>解压</p>
+<pre><code class="language-shell">tar -zxvf nginx-1.9.9.tar.gz
+</code></pre>
+</li>
+<li>
+<p>进入nginx目录</p>
+<pre><code class="language-shell">cd nginx-1.9.9
+</code></pre>
+</li>
+<li>
+<p>配置</p>
+<pre><code class="language-shell">./configure --prefix=/usr/local/nginx
+</code></pre>
+</li>
+<li>
+<p>编译</p>
+<pre><code class="language-shell">make
+make install
+</code></pre>
+</li>
+<li>
+<p>测试</p>
+<pre><code class="language-shell">cd ..
+cd nginx
+./sbin/nginx -t
+</code></pre>
+</li>
+</ol>
+<h2 id="3-nginx配置文件">3. Nginx配置文件</h2>
+<ol>
+<li>
+<p>配置文件位置</p>
+<p>/usr/local/nginx/conf/nginx.conf</p>
+</li>
+<li>
+<p>nginx配置文件组成</p>
+<ul>
+<li>
+<p>全局块</p>
+<p>从配置文件开始到events块的内容，主要会设置一些影响nginx服务器整体运行的配置指令。</p>
+<p>比如worker_processes        1；值越大，支持并发处理量越多。</p>
+</li>
+<li>
+<p>Events块</p>
+<p>影响Nginx服务器与用户网络的连接。</p>
+<p>比如worker_connections    1024；支持的最大连接数</p>
+</li>
+<li>
+<p>http块</p>
+<p>Nginx配置最频繁的部分</p>
+<ul>
+<li>http全局块</li>
+<li>server块</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="4-nginx配置实例">4. Nginx配置实例</h2>
+<h3 id="41-反向代理">4.1 反向代理</h3>
+<p><strong>实现效果1：打开浏览器，在浏览器地址栏输入地址www.123.com跳转到linux系统tomcat主界面。</strong></p>
+<ol>
+<li>
+<p>安装tomcat</p>
+<blockquote>
+<ol>
+<li>下载Tomcat安装包，解压</li>
+<li>进入bin目录，输入./startup.sh启动</li>
+</ol>
+</blockquote>
+</li>
+<li>
+<p>开放端口</p>
+<pre><code class="language-shell">firewall-cmd --add-port=8080/tcp --permanent
+firewall-cmd -reload//重启防火墙
+
+</code></pre>
+<p>或者学习阶段直接关闭防火墙</p>
+<pre><code class="language-shell">systemctl stop firewalld
+</code></pre>
+</li>
+<li>
+<p>修改hosts</p>
+</li>
+<li>
+<p>在nginx进行请求转发的配置</p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2020/06/24/OmEzKfwvdZlDP4C.png" alt="image-20200621221514079" loading="lazy"></figure>
+</li>
+<li>
+<p>重启nginx</p>
+<pre><code class="language-shell">./nginx -s reload
+</code></pre>
+</li>
+</ol>
+<p><strong>实现效果2：使用nginx反向代理，根据访问的路径跳转到不同端口的服务中，nginx监听端口为9001</strong></p>
+<ol>
+<li>
+<p>启动两个Tomcat</p>
+<p>其中一个在conf/server.xml中修改启动端口为8081</p>
+</li>
+<li>
+<p>创建文件夹和测试页面</p>
+</li>
+<li>
+<p>修改配置文件</p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2020/06/24/yMnCNYA6RFhuIBQ.png" alt="image-20200622043218321" loading="lazy"></figure>
+</li>
+<li>
+<p>测试结果<br>
+成功把链接指向对应端口</p>
+</li>
+</ol>
+<h3 id="42-负载均衡">4.2 负载均衡</h3>
+<h4 id="421-实现步骤">4.2.1 实现步骤</h4>
+<p><strong>实现效果：在浏览器输入地址192.168.75.128/edu/a.html，平均分配到8080和8081端口中去。</strong></p>
+<ol>
+<li>
+<p>启动两个Tomcat</p>
+</li>
+<li>
+<p>在两台tomcat的webapps目录中，都创建一个名称是edu的文件夹，在edu文件夹中创建页面a.html用于测试</p>
+</li>
+<li>
+<p>在Nginx的配置文件夹中进行负载均衡的配置</p>
+<figure data-type="image" tabindex="4"><img src="https://i.loli.net/2020/06/24/JDe7WoiKOL9NhAV.png" alt="image-20200622162821884" loading="lazy"></figure>
+</li>
+</ol>
+<figure data-type="image" tabindex="5"><img src="https://i.loli.net/2020/06/24/2j6V1DdFraTKkih.png" alt="image-20200622162833968" loading="lazy"></figure>
+<h4 id="422-主要策略">4.2.2 主要策略</h4>
+<ul>
+<li>
+<p>轮询（默认）</p>
+<p>平均分配客户端。</p>
+</li>
+<li>
+<p>weight</p>
+<p>根据权重分配，权重越高被分配的客户端越多。用于性能不均的情况。</p>
+<figure data-type="image" tabindex="6"><img src="https://i.loli.net/2020/06/24/oB1zLQ9EwxauHpU.png" alt="image-20200622163616825" loading="lazy"></figure>
+</li>
+<li>
+<p>ip_hash</p>
+<p>每个请求根据ip的hash值进行分配，每个访客固定访问一个服务器，解决了session的问题。</p>
+<figure data-type="image" tabindex="7"><img src="https://i.loli.net/2020/06/24/x5KNsZkDFJhTVeE.png" alt="image-20200622163938040" loading="lazy"></figure>
+</li>
+<li>
+<p>fair（第三方）</p>
+<p>根据后端服务器的响应时间来分配，响应时间短的优先分配。</p>
+<figure data-type="image" tabindex="8"><img src="https://i.loli.net/2020/06/24/M2JFGzXasIW831j.png" alt="image-20200622164022165" loading="lazy"></figure>
+</li>
+</ul>
+<h3 id="43-动静分离">4.3 动静分离</h3>
+<ol>
+<li>
+<p>准备静态资源</p>
+</li>
+<li>
+<p>配置nginx</p>
+<figure data-type="image" tabindex="9"><img src="https://i.loli.net/2020/06/24/bvn13CP9VgcyXRx.png" alt="image-20200622170009939" loading="lazy"></figure>
+</li>
+<li>
+<p>效果</p>
+<figure data-type="image" tabindex="10"><img src="https://i.loli.net/2020/06/24/7dh2zb8PxMjwX91.png" alt="image-20200622170601031" loading="lazy"></figure>
+</li>
+</ol>
+<figure data-type="image" tabindex="11"><img src="https://i.loli.net/2020/06/24/hQqzuwtGW87Fjed.png" alt="image-20200622170714467" loading="lazy"></figure>
+<h3 id="44-高可用集群">4.4 高可用集群</h3>
+<blockquote>
+<p>高可用HA（High Availability）是分布式系统架构设计中必须考虑的因素之一，它通常是指，通过设计减少系统不能提供服务的时间。</p>
+<p>如何保障系统的高可用？</p>
+<p>我们都知道，单点是系统高可用的大敌，单点往往是系统高可用最大的风险和敌人，应该尽量在系统设计的过程中避免单点。方法论上，高可用保证的原则是“集群化”，或者叫“冗余”：只有一个单点，挂了服务会受影响；如果有冗余备份，挂了还有其他backup能够顶上。</p>
+<p><a href="https://www.cnblogs.com/shizhiyi/p/7750530.html">参考</a></p>
+</blockquote>
+<ol>
+<li>
+<p>在两台服务器中安装nginx</p>
+</li>
+<li>
+<p>在两台服务器中安装keepalived</p>
+<pre><code class="language-shell">yum install keepalived -y
+</code></pre>
+</li>
+<li>
+<p>修改keepalived配置文件</p>
+<pre><code class="language-shell">cd /etc/keepalived/
+vi keepalived.conf 
+</code></pre>
+<pre><code class="language-conf">#全局配置
+global_defs {
+
+notification_email {
+
+acassen@firewall.loc
+
+failover@firewall.loc
+
+sysadmin@firewall.loc
+
+}
+
+notification_email_from Alexandre.Cassen@firewall.loc
+
+smtp_server 192.168.17.129
+
+smtp_connect_timeout 30
+
+router_id LVS_DEVEL ##访问到主机
+
+}
+
+vrrp_script chk_http_port {
+script &quot;/usr/local/src/nginx_check.sh&quot;
+
+interval 2	#（检测脚本执行的间隔）
+
+weight 2 #权重
+
+}
+
+vrrp_instance VI_1 {
+
+state BACKUP	# 备份服务器上将 MASTER 改为 BACKUP
+
+interface ens33	//网卡
+
+virtual_router_id 51	# 主、备机的 virtual_router_id 必须相同
+
+priority 100	# 主、备机取不同的优先级，主机值较大，备份机值较小
+
+advert_int 1
+
+authentication {
+
+auth_type PASS
+
+
+auth_pass 1111
+
+}
+
+virtual_ipaddress {
+
+192.168.17.50 // VRRP H 虚拟地址
+
+}
+
+}
+</code></pre>
+</li>
+<li>
+<p>在<code>/usr/local/src</code>添加检测脚本</p>
+<pre><code class="language-sh">#!/bin/bash
+A=`ps -C nginx –no-header |wc -l`
+if [ $A -eq 0 ];
+    then /usr/local/nginx/sbin/nginx
+    sleep 2
+    if [ `ps -C nginx --no-header |wc -l` -eq 0 ];
+    	then killall keepalived
+    fi
+ fi
+</code></pre>
+</li>
+<li>
+<p>把两台服务器上nginx和keepalived启动</p>
+<pre><code class="language-shell">systemctl start nginx
+systemctl start keepalived.service
+</code></pre>
+</li>
+</ol>
+<h2 id="5-原理解析">5. 原理解析</h2>
+<p>Nginx中同时含有两个进程，master和worker。master收到客户端请求，将任务分配给worker，worker通过争抢机制得到任务进行反向代理。</p>
+<figure data-type="image" tabindex="12"><img src="https://i.loli.net/2020/06/24/Z3g1YUG9qtsSPQz.png" alt="img" loading="lazy"></figure>
+<h3 id="51-一个master和多个worker的好处">5.1 一个master和多个worker的好处</h3>
+<ol>
+<li>
+<p>可以使用 nginx –s reload 热部署，利用 nginx 进行热部署操作。</p>
+</li>
+<li>
+<p>每个 woker 是独立的进程，不需要加锁，减少了开销。如果有其中的一个 woker 出现问题，其他 woker 可以继续进行争抢，实现请求过程，不会造成服务中断。</p>
+</li>
+</ol>
+<h3 id="52-worker数量的设置">5.2 worker数量的设置</h3>
+<p>Nginx采用了io多路复用机制。（<strong>I/O多路复用，I/O就是指的我们网络I/O,多路指多个TCP连接(或多个Channel)，复用指复用一个或少量线程。串起来理解就是很多个网络I/O复用一个或少量的线程来处理这些连接。</strong>）每个worker的线程都可以把一个cpu的性能发挥到机制，所以<strong>worker 数和服务器的 cpu 数相等是最为适宜的</strong>。</p>
+<h3 id="53-连接数">5.3 连接数</h3>
+<ul>
+<li>
+<p>发送请求，占用了woker 的几个连接数？</p>
+<p>2个或者4个。</p>
+</li>
+<li>
+<p>Nginx有一个master，有四个woker，每个woker支持最大的连接数1024，支持的最大并发数是多少？</p>
+<p>worker支持的最大连接数：4*1024/2。</p>
+<p>普通的静态访问最大并发数是： worker_connections * worker_processes /2，</p>
+<p>而如果是HTTP作为反向代理来说，最大并发数量应该是worker_connections * worker_processes/4。</p>
+</li>
+</ul>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="sharebtnContainer">
+                <button type="button" class="sharebtn">转载分享</button>
+            </div>
+            <div class="shareContainer">
+                <div class="share" style="height:30px;background: white;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/QQ.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/wechat.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/weibo.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qzone.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/douban.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/facebook.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
+            
+            
+            <div class="donateContainer">
+                <img src="https://codingbear.top/media/images/donate.png" alt="" class="donateImg">
+            </div>
+            <div class="donateContainer">
+                <img src="https://i.loli.net/2020/08/14/WRwCGfILpX3j5gS.png" alt="" class="donate">
+            </div>
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong>X2</li>
+            <li><strong>原文链接：</strong>https://codingbear.top/post/nginx/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        <div id="otherpost">
+            
+            <div class="prev-post-pc">
+                <div id="ppcontainer" onclick="window.location.href= 'https://codingbear.top/post/c-low-yi-kuai-xiao-bu/';return false">
+                    
+                    <img src="https://i.loli.net/2020/08/09/B3zqJKoQNM5lAWw.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">C-Low - 一块胶布</h4>
+                </div>
+            </div>
+            <div class="prev-post">
+                上一篇 <a href="https://codingbear.top/post/c-low-yi-kuai-xiao-bu/">C-Low - 一块胶布</a>
+            </div>
+            
+            
+            <div class="next-post-pc">
+                <div id="npcontainer" onclick="window.location.href= 'https://codingbear.top/post/welcome/';return false">
+                    
+                    <img src="https://i.loli.net/2020/08/08/8qHKFQie142OIau.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">Hello World！</h4>
+                </div>
+            </div>
+            <div class="next-post">
+                下一篇 <a href="https://codingbear.top/post/welcome/">Hello World！</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                <div id="comment" class="comment" style="background: white">
+                    <div class="commentcontainer">
+                        
+                        <style>
+
+
+    @media screen and (min-width: 1300px) {
+        .veditor::placeholder {
+            color: #b3b3b3;
+            font-size: 18px;
+            text-align: center;
+            line-height: 3rem;
+            font-family: kaiti;
+        }
+    }
+</style>
+
+<body>
+    <div id="vcomments">
+    </div>
+    <script src="https://codingbear.top/media/js/valine.min.js"></script>
+    <!-- <script src="https://unpkg.com/valine/dist/Valine.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'aRJEq7MuzWMOwkGw2E7cTb0o-MdYXbMMI',
+            appKey: 'VU9tLRGs04JCbYMJJWUCiz7H',
+            notify: true,
+            verify: false,
+            avatar: 'retro',
+            pageSize: 10,
+            placeholder: '既然来了，何不畅所欲言呢？',
+            visitor: true, // 阅读量统计
+        });
+    </script>
+    <script type="text/javascript">
+        // jinrishici.load(function (result) {
+        //     var jrsc_plac = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
+        //         .dynasty + " · " + result.data.origin.author;
+        //     if (jrsc_plac != undefined)
+        //         document.getElementById("veditor").setAttribute("placeholder", jrsc_plac);
+        // 
+        var jrsc = '既然来了，何不畅所欲言呢？';
+        jinrishici.load(function (result) {
+                // 自己的处理逻辑
+                jrsc = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
+                 .dynasty + " · " + result.data.origin.author;
+            });
+    </script> 
+    
+</body>
+                        <div class="clear"></div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-lg-3">
+            </div>
+            <div id="bg">
+            </div>
+        </div>
+        
+        
+        <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+<body>
+    <div class="miniMode">
+        <meting-js id="myaplayer" server="netease" type="playlist" fixed="true" order="default">
+        </meting-js>
+    </div>   
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script>
+    var aplayerid = "7677433291";
+    var aplayerserver = "tencent";
+    var aplayerorder = "random";
+    var aplayerautoplay = "true";
+    var aplayer = $("#myaplayer");
+    aplayer.attr("server",aplayerserver);
+    aplayer.attr("id",aplayerid);
+    aplayer.attr("order",aplayerorder);
+    if(aplayerautoplay=="true")
+        aplayer.attr("autoplay","true");
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/Aplayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<script>
+    function aplayerbtnInit(){
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        player.lrc.hide();
+        var mbabtn = $("#mbaplayer");
+        if(player.paused==false)
+        {
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        }
+        else
+        {
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+
+    function aplayerPlay(){
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        var mbabtn = $("#mbaplayer");
+        if(player.paused==true)
+        {
+            player.play();
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        }
+        else
+        {
+            player.pause();
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+</script>
+        
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">1. 基本概念</a></li>
+<li><a href="#2-nginx%E5%AE%89%E8%A3%85">2. Nginx安装</a></li>
+<li><a href="#3-nginx%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">3. Nginx配置文件</a></li>
+<li><a href="#4-nginx%E9%85%8D%E7%BD%AE%E5%AE%9E%E4%BE%8B">4. Nginx配置实例</a>
+<ul>
+<li><a href="#41-%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86">4.1 反向代理</a></li>
+<li><a href="#42-%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">4.2 负载均衡</a>
+<ul>
+<li><a href="#421-%E5%AE%9E%E7%8E%B0%E6%AD%A5%E9%AA%A4">4.2.1 实现步骤</a></li>
+<li><a href="#422-%E4%B8%BB%E8%A6%81%E7%AD%96%E7%95%A5">4.2.2 主要策略</a></li>
+</ul>
+</li>
+<li><a href="#43-%E5%8A%A8%E9%9D%99%E5%88%86%E7%A6%BB">4.3 动静分离</a></li>
+<li><a href="#44-%E9%AB%98%E5%8F%AF%E7%94%A8%E9%9B%86%E7%BE%A4">4.4 高可用集群</a></li>
+</ul>
+</li>
+<li><a href="#5-%E5%8E%9F%E7%90%86%E8%A7%A3%E6%9E%90">5. 原理解析</a>
+<ul>
+<li><a href="#51-%E4%B8%80%E4%B8%AAmaster%E5%92%8C%E5%A4%9A%E4%B8%AAworker%E7%9A%84%E5%A5%BD%E5%A4%84">5.1 一个master和多个worker的好处</a></li>
+<li><a href="#52-worker%E6%95%B0%E9%87%8F%E7%9A%84%E8%AE%BE%E7%BD%AE">5.2 worker数量的设置</a></li>
+<li><a href="#53-%E8%BF%9E%E6%8E%A5%E6%95%B0">5.3 连接数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    </div>
+    </div>
+    <div class="tog">
+        <div class="toggleContainer">
+            <div class="toggle">
+                <i class="fas fa-angle-double-up"></i>
+            </div>
+        </div>
+    </div>
+    <div id="bgchoice" style="display: none">link</div>
+    
+    <div id="bgurl" style="display:none">https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg</div>
+    
+    </div>
+</body>
+<script>
+    var img = $("img");
+    for (var i = 0; i < img.length; i++) {
+        if (img.eq(i).attr("class") == undefined) {
+            img.eq(i).attr("class", "lazyload");
+            var imgsrc = img.eq(i).attr("src");
+            img.eq(i).attr("data-original", imgsrc);
+            img.eq(i).attr("src", "");
+            img.eq(i).hide();
+        }
+    }
+</script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+<script>
+    //寻找所有code标签，加复制按钮鸭！(行内代码除外)
+    var codes = document.getElementsByTagName('code');
+    if (codes.length) {
+        for (var i = 0; i < codes.length; i++) {
+            //高度/行高=文本行数
+            // var rowNum=Math.round(codes[i].height()/parseFloat(codes[i].css('line-height')));
+            // console.log("当前有"+rowNum+"行");
+            var code_id = "code_id_" + i;
+            codes[i].setAttribute("id", code_id);
+            var ci = "#" + code_id;
+            var codedot = $(ci);
+            var rowNum = Math.round(codedot.height() / parseFloat(codedot.css('line-height')));
+            if (rowNum <= 1) continue;
+            var btn = document.createElement("button");
+            btn.setAttribute("class", "copybt");
+            btn.setAttribute("data-clipboard-target", "#" + code_id);
+            btn.innerHTML = '复制代码';
+            codes[i].parentNode.insertBefore(btn, codes[i]);
+        }
+    };
+    var cop = new ClipboardJS('.copybt');
+    var codeCopyText = $("#codeCopyText").html();
+    cop.on('success', function (e) {
+        alert(codeCopyText);
+        e.clearSelection();
+    });
+    cop.on('error', function (e) {
+        alert("矮油，复制失败了...手动复制吧勇士！");
+        e.clearSelection();
+    });
+</script>
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/live2d.js"></script>
+<script type="text/javascript" src="https://codingbear.top/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://codingbear.top/media/live2d/assets/tororo.model.json");
+</script>
+
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+
+<script>
+    var bgchoice = $('#bgchoice').html();
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+    bg.css("background", "url('" + bgurl + "')");
+</script>
+
+
+
+
+<!-- 动态更改上(下)一篇博客图片框长宽 -->
+<script>
+    npcontainer = document.querySelector('#npcontainer');
+    npstyle = window.getComputedStyle(npcontainer, null);
+    npwidth = npstyle.width;
+    npheight = 0.6 * Number(npwidth.replace("px", ""));
+    npheight = npheight.toString() + "px";
+    var op = $(".opimg");
+    op.css("height", npheight);
+</script>
+
+<script src="https://codingbear.top/media/share/dist/Share.js"></script>
+
+<script>
+    var avatarSrc = $(".menutopavatar").attr("src");
+    var dp = document.getElementsByClassName("navbar-brand")[1].innerHTML;
+</script>
+
+
+<script>
+    var title = document.getElementById("texttitle").getElementsByTagName("h2");
+    
+    var share = new Share('.share', {
+        title: title[0].innerHTML,
+        initialized: true,
+        //默认获取网站描述
+        description: dp,
+        //网站图片默认获取的是设置的用户头像
+        image: avatarSrc,
+        //激活的分享网站
+        sites: ["weibo", "qq", "wechat", "douban", "qzone", "facebook", "twitter", "google"],
+        //微信分享PC端会生成二维码分享,移动端如果可以唤起微信最好
+        wechatQrcodeTitle: "微信扫一扫：分享", // 微信二维码提示文字
+        wechatQrcodeHelper: '<p>微信里扫一下二维码</p><p>便可将本文分享至朋友圈。</p>',
+        //关闭的网站分享
+        disabled: ['google', 'linkedin'],
+        wechatQrcodePosition: 'bottom'
+    });
+
+    //点击分享按钮展现出分享icons
+    var sharebtnTag = false;
+    $(".sharebtn").click(function () {
+        if(!sharebtnTag)
+        {
+            $(".share").show();
+            sharebtnTag = true;
+        }
+        else
+        {
+            $(".share").hide();
+            sharebtnTag = false;
+        }
+    })
+
+    var donatebtnTag = false;
+    $(".donateImg").click(function () {
+        if(!donatebtnTag)
+        {
+            $(".donate").show();
+            donatebtnTag = true;
+        }
+        else{
+            $(".donate").hide();
+            donatebtnTag = false;
+        }
+    })
+
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload=function(){
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);
+        document.getElementById("veditor").setAttribute("placeholder", jrsc);
+        aplayerbtnInit();
+    }
+</script>
+
+
+<script>
+    jQuery(document).ready(function ($) {
+        function lazyload() {
+            var oLazyload = $("img.lazyload"),
+                fLazyload = function (hLazyload) {
+                    var nLazyload = $(window).height() + $(document).scrollTop();
+                    oLazyload.each(function () {
+                        $(this).offset().top < nLazyload && ($(this).trigger("appear"), oLazyload =
+                            oLazyload.not(this));
+                    }), 0 == oLazyload.length && $(window).unbind("scroll", fLazyload);
+                };
+            oLazyload.each(function () {
+                $(this).one("appear", function () {
+                    $(this).attr("src", $(this).attr("data-original"));
+                    $(this).fadeIn(500);
+                });
+            }), $(window).bind("scroll", fLazyload), fLazyload();
+        }
+        lazyload();
+    });
+</script>
+
+<!-- <script src="https://codingbear.top/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->
+
+<script>
+    function getHotnum() {
+        //文章阅读热度（重构，利用leancloud原生api）
+        var pl = $("#pl").html();
+        var rootaddr = $("#rootaddr").html();
+        pl = pl.replace(rootaddr, "");
+
+        var appid = 'aRJEq7MuzWMOwkGw2E7cTb0o-MdYXbMMI';
+        var appkey = 'VU9tLRGs04JCbYMJJWUCiz7H';
+        console.log(appid, appkey)
+        if(AV==undefined)
+            AV.init({
+                appId: appid,
+                appKey: appkey
+            });
+        const query = new AV.Query('Counter');
+        query.equalTo('url', pl);
+        var time = 'Loading...';
+        query.find().then(function (results) {
+            console.log(results)
+            if (results.length == 0) {
+                console.log("0")
+                var NewCounter = AV.Object.extend('Counter');
+                var nc = new NewCounter();
+                nc.save({
+                    time: 1,
+                    title: "Nginx",
+                    url: pl,
+                    xid: pl,
+                }).then(function (object) {
+                    $(".hotnum").eq(0).html(1);
+                    $(".hotnum").eq(1).html(1);
+                });
+            } else {
+                id = results[0].id;
+                var todo = AV.Object.createWithoutData('Counter', id);
+                time = results[0].attributes.time + 1;
+                todo.set("time", time);
+                todo.save();
+                console.log(todo);
+                $(".hotnum").eq(0).html(time);
+                $(".hotnum").eq(1).html(time);
+            }
+
+        }, function (error) {
+            console.log(error)
+        });
+    }
+</script>

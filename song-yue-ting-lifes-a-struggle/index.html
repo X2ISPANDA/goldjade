@@ -1,0 +1,1715 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="
+      
+
+
+
+
+    
+
+
+
+
+
+Lrc滚动歌词：
+[00:00.00]作曲 : 宋岳庭
+[00:01.00]作词 : 宋岳庭
+[00:20.57]正当我睁开双眼 踏入这个世界
+[00:23.22]妈妈给我生命 现在让我自生自灭
+..." />
+    <meta name="keywords" content="音乐,lrc,Hiphop" />
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>宋岳庭 - Life&#39;s A Struggle</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://codingbear.top</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <head>
+  <!-- 引入Bootstrap核心样式文件 -->
+  <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+</head>
+<style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" href="https://codingbear.top">琢钰&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        <li><a data-pjax href="https://codingbear.top/talk">说说</a></li>
+        
+          
+        <li><a data-pjax href="https://codingbear.top/friends">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/" + "97be6dc3" + ".js", "daovoice")
+    </script>
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://codingbear.top/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://codingbear.top/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading">
+            <div class="loading">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://codingbear.top/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://codingbear.top/images/avatar.png?v=1628686722853" class="avatar">
+        </div>
+        <div class="sitename">琢钰</div>
+        <span class="description" data-text='["玉不琢，不成器。人不学，不知义。"]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">12</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span>Hello,it&#39;s me！</span>
+        
+        <a href="https://github.com/godbear329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/github.png" alt=""></i></a>
+        
+        
+        <a onclick="showqq()"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/QQ.png" alt=""></i></a>
+        
+        
+        <a href="https://www.zhihu.com/people/xmy0329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/zh.png" alt=""></i></a>
+        
+        
+        <a href="https://space.bilibili.com/37977624" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/bilibili.png" alt=""></i></a>
+        
+        
+        
+        <a href="https://weibo.com/URsun329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/weibos.png" alt=""></i></a>
+        
+        
+        
+        <a href="https://steamcommunity.com/id/xmy0329/" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/steam.png" alt=""></i></a>
+        
+    </div>
+    <div id="qq" style="display:none">254716908</div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/talk" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="说说"></i>&nbsp;<span data-text="说说">说说</span>
+            </a>
+        </div>
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/atom.xml" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="RSS"></i>&nbsp;<span data-text="RSS"> RSS</span>
+            </a>
+        </div>
+            
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="#terrestrial" id="fog_go" class="open-popup menubutton" style="margin-right: 15px;">
+                    <i><img class="icon menuicon" src="" alt="御风飞行"></i>&nbsp;<span data-text="御风飞行">御风飞行</span>
+            </a>
+        </div>
+        
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/godbear329" target="_blank">X2</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+                <div id="sitegotimeDate">载入天数...</div>
+                <div id="sitegotimes">载入时分秒...</div>
+                <div id="cussitetime" style="display:none">08/07/2020</div>
+                
+            </div>
+            <div>
+                
+                <script async
+                    src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/busuanzi.pure.mini.js"></script>
+                <div id="vistornum" style="margin:0">
+                    <span id="busuanzi_container_site_uv">
+                        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i> 总访问量:<span
+                            id="busuanzi_value_site_pv"></span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <i class="fa fa-user-o" aria-hidden="true"></i> 访问人数:<span id="busuanzi_value_site_uv"></span>
+                    </span>
+                </div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">Copyright © 2021 codingbear.top 湘ICP备 2021008657号
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+<script>
+    //----------------------站点运行时间
+    var now = new Date();
+
+    function createtime() {
+        var sitegotime = document.getElementById("cussitetime").innerHTML + " 00:00:00";
+        var grt = new Date(sitegotime); //此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+            mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+            snum = "0" + snum;
+        }
+        document.getElementById("sitegotimeDate").innerHTML = "本站已安全运行 " + dnum + " 天 ";
+        document.getElementById("sitegotimes").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+
+    let intervalId = setInterval("createtime()", 250);
+</script>
+
+    </div>
+
+
+    <script src="https://codingbear.top/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://codingbear.top/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "琢钰";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "琢钰";
+            var siteurl = "https://codingbear.top";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script>
+<!------------- Fog1.0版本彩蛋👆 -------------->
+
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        let shareChoice = true
+    </script>
+    
+    
+    <script>
+        let donateChoice = true
+    </script>
+    
+    
+    <script>
+        let searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    马来西亚华人
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    东奥所感
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    十年
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习08-数据库
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习07-IO流
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习06-多线程
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习05-集合
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    法老-隐藏曲目（feat.戴斯蒙德）
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习04-面向对象
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    艾福杰尼-KORLA
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Skr Skr Skr - 艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    1992 Part 3（下）-艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    G Plus (El Chapo Remix) - 艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    1992 Part 3（上）-艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    林宥嘉 - 年纪大了一点（Live） 橘子星光大道
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习03-几种基本的排序算法
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Kendrick Lamar - DNA.
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习02-流程控制与数组
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习01-数据类型和运算符
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    【假面舞团】NBA总决赛表演 JABBAWOCKEEZ
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    宋岳庭 - Life&#39;s A Struggle
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Tizzy T/Jony J - 变
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Redis
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    阴三儿 - 北京晚报
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    C-Low - 一块胶布
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Nginx
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Hello World！
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            let menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+    <script>
+        var iconname = "首页";
+        var iconurl = "https://cdn3.iconfinder.com/data/icons/vol-3/128/home-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "归档";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/files-and-folders-15/48/11-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "标签";
+        var iconurl = "https://cdn0.iconfinder.com/data/icons/expenses-vs-income/30/__label_tag_shopping_price-256.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "关于";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/basic-ui-flat-curv-bg/614/127_-_Information-256.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "说说";
+        var iconurl = "https://cdn1.iconfinder.com/data/icons/media-1-2/32/Communication-Conversation-Chat-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "友人帐";
+        var iconurl = "https://cdn0.iconfinder.com/data/icons/happy-man-human-resource-and-life-style-color-set-/91/Happy_Man_Human_Resource__Life_Style_C-02-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "RSS";
+        var iconurl = "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/286_Rss_logo-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "御风飞行";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/life-concepts-lifestyles/128/world-travel-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://codingbear.top/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://codingbear.top/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[{"author":"X2","img":"","text":"黑科技（Black Technology ）是在日本动漫《全金属狂潮》中登场的术语，原意指非人类自力研发，凌驾于人类现有的科技之上的知识，引申为以人类现有的世界观无法理解的猎奇物。","time":"2020年8月12日09:21:02"},{"author":"X2","img":"https://i.loli.net/2021/05/18/tsuZa4rRfYMbH95.png","text":"ElasticSearch的404页面很有意思:`I refuse to prove that I exist,’ says Page, `for proof denies faith, and without faith I am nothing.’  `But,’ says Man, `The Babel fish is a dead giveaway, isn’t it? It could not have evolved by chance. It proves you exist, and so therefore, by your own arguments, you don’t. QED.’  `Oh dear,’ says Page, `I hadn’t thought of that,’ and promptly disappears in a puff of logic.","time":"2021年5月18日23:01:40"},{"author":"X2","img":"","text":"异常和错误的基类是Throwable，包括Exception和Error。","time":"2020年9月17日01:48:39"},{"author":"X2","img":"","text":"System.out.println()中System是java.lang中的一个类，out是System内的一个成员变量，这个变量是一个java.io.PrintStream类的对象，println是其中的一个方法。","time":"2020年9月16日19:19:32"},{"author":"X2","img":"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2650078973,165148164&fm=26&gp=0.jpg","text":"承认自己的无知，乃是开启智慧的大门。","time":"2020年8月13日00:20:46"},{"author":"X2","img":"http://x0.ifengimg.com/res/2019/B5E2471C3A4D1232FBBE859658CF66AE0E06FB39_size189_w452_h345.png","text":"你走到光明处，有好心人报个信，你的男人王玉明接你回家。","time":"2020年8月20日22:26:53"},{"author":"X2","img":"","text":"局部变量不会进行初始化。","time":"2020年9月11日01:16:27"},{"author":"X2","img":"https://pic2.zhimg.com/80/v2-a51a22ae2f7001c50ed02a26e4a1bb29_720w.jpg","text":"满嘴顺口溜，你想考研啊？-《疯狂的赛车》","time":"2020年10月3日21:08:47"}]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://codingbear.top/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        getHotnum();
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            imglazyloadinit();
+            lazyload();
+            codeinit();
+            if ("valine" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+<script>
+    daovoice('init', {
+        app_id: "97be6dc3"
+    });
+    daovoice('update');
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://codingbear.top/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+</div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <link rel="stylesheet" href="https://codingbear.top/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                <img src="https://codingbear.top/宋岳庭.jpg" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2020-08-10</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 9 min read</div>
+                <div class="posttag">
+                    
+                    <a data-pjax href="https://codingbear.top/2v49g9dTi2/" class="postlink">
+                        <i class="fa fa-tag"></i> 音乐
+                    </a>
+                    
+                    <a data-pjax href="https://codingbear.top/xyMOKrYdz/" class="postlink">
+                        <i class="fa fa-tag"></i> lrc
+                    </a>
+                    
+                    <a data-pjax href="https://codingbear.top/_oFhCxiLk/" class="postlink">
+                        <i class="fa fa-tag"></i> Hiphop
+                    </a>
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">宋岳庭 - Life&#39;s A Struggle</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://codingbear.top/song-yue-ting-lifes-a-struggle/</div>
+                <div id="rootaddr" style="display:none">https://codingbear.top</div>
+                
+                    <span id="hotnum">
+                        <h4><i class="fa fa-eye" aria-hidden="true" style="color: #FF8C00;"></i>&nbsp;&nbsp;热度</i>: <i
+                                class="hotnum">loading...</i></h4>
+                    </span>
+                
+            </div>
+            <div class="text ">
+                <audio id="audio" controls  controlsList="nodownload" oncontextmenu="return false" preload loop>
+      <source id="mp3" src="https://codingbear.top/Life's A Struggle.mp3">
+</audio>
+<br/>
+<br/>
+<div class="popupimage_loading" style="top: 0px; left: 0px; width: 350px; height: 350px;">
+    <img src="https://codingbear.top/Life.jpg">
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<p>Lrc滚动歌词：</p>
+<p>[00:00.00]作曲 : 宋岳庭<br>
+[00:01.00]作词 : 宋岳庭<br>
+[00:20.57]正当我睁开双眼 踏入这个世界<br>
+[00:23.22]妈妈给我生命 现在让我自生自灭<br>
+[00:25.73]这让我恐惧 在我的眼里每个人都戴着面具<br>
+[00:28.81]回想过去 难道生命就是这样延续？<br>
+[00:31.40]我抽烟抽得我的肺都黑了<br>
+[00:33.34]就像整个社会被人心笼罩着 它也是黑的<br>
+[00:36.32]我背着宿命的十字架<br>
+[00:38.07]也渴望Power, paper and respect<br>
+[00:39.95]我想这大概就是human nature<br>
+[00:42.03]佛家说 烦恼即是菩提 我暂且不提<br>
+[00:44.55]我倒是希望能够回到母体<br>
+[00:46.65]老妈对不起 我时常把你气得跺脚<br>
+[00:49.00]你说你后悔当初没有堕胎把我堕掉<br>
+[00:51.60]每当我放学回家 放下那沉重的背包<br>
+[00:54.15]家里空无一人 只残留着你香水的味道<br>
+[00:56.83]那时我知道 你那天晚上又要加班<br>
+[00:59.36]我打开冰箱 拿出微波炉食品当晚餐<br>
+[01:01.93]老爸在凌晨两点钟醉醺醺地回家<br>
+[01:04.63]我从睡梦中醒来 只听到你们在吵架<br>
+[01:07.18]我没有办法专心面对第二天的考试<br>
+[01:09.75]老师他不喜欢我 我也不喜欢老师<br>
+[01:12.30]我讨厌穿制服 我讨厌学校的制度<br>
+[01:14.85]我讨厌训导主任的嘴脸 讨厌被束缚<br>
+[01:17.39]That's true<br>
+[01:18.16]很多人不屑我的态度 他们说我太cool<br>
+[01:21.11]警察不爽我都曾将我逮捕<br>
+[01:22.93]I don't give a fuck about 人家说什么<br>
+[01:25.19]他们想说什么就说什么 但是他们算什么<br>
+[01:28.46]没有谁有权利拿他的标准衡量我<br>
+[01:31.11]主宰是我自己 随便人家如何想 我还是我<br>
+[01:34.27]爱钱的女人只给凯子摸<br>
+[01:36.33]不懂得用保险套的人别嫌孩子多<br>
+[01:39.00]金钱力量虽大 却生不带来死不带走<br>
+[01:41.46]紧握着双拳的人们何时能松开手？<br>
+[01:44.99]Life's a struggle 日子还要过<br>
+[01:46.79]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[01:49.64]Everyday 有多少问题要去面对<br>
+[01:52.03]有多少夜 痛苦烦恼着你无法入睡…<br>
+[01:55.21]Life's a struggle 日子还要过<br>
+[01:57.15]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[01:59.96]Everyday 有多少问题要去面对<br>
+[02:02.42]有多少夜 痛苦烦恼着你无法入睡…<br>
+[02:05.51]法庭严肃的空气逼得我快不能呼吸<br>
+[02:08.23]当时面临着终生监禁的我开始反省<br>
+[02:10.72]铁栏杆之后又是个截然不同的景象<br>
+[02:13.17]刑犯们眼神中看不到一点和平的气象<br>
+[02:16.02]仅有一寸短的铅笔 写的是监狱风云<br>
+[02:18.52]日记上描绘的不是美好的户外风景<br>
+[02:21.02]自由在他们眼里才是憧憬<br>
+[02:23.04]放一把自制武器在枕头旁 以防随时有人偷袭<br>
+[02:26.16]有些人怀疑老婆在外偷情<br>
+[02:28.19]有些人把家人寄来的信件一张一张好好收集<br>
+[02:31.40]有些人二十四小时几乎在床上休息<br>
+[02:34.07]有些人精神失常 因为受不了打击<br>
+[02:36.63]三个月如火如荼的漫长等待已过去<br>
+[02:39.16]出狱后的我得面对三年的缓刑期<br>
+[02:41.76]这也好 一生中第一次感觉到幸福<br>
+[02:44.39]但是生命中的考验何止如此我不清楚<br>
+[02:46.90]我不知道 接下来还有什么会发生<br>
+[02:49.49]翻开报纸的新闻又是看到放火杀人<br>
+[02:52.11]还记得某年无意间发现的照片<br>
+[02:54.18]上面有阿姨对男人施行口交的恶心画面<br>
+[02:57.30]这简直摧毁了她在我心目中的形象<br>
+[02:59.82]我无法忘怀照片中那笑容多么淫荡<br>
+[03:02.43]我抵抗 胸口存在着不安及惶恐<br>
+[03:04.94]我不断听到痛苦的声音在内心怒吼<br>
+[03:08.06]Life's a struggle 日子还要过<br>
+[03:09.86]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[03:12.63]Everyday 有多少问题要去面对<br>
+[03:15.08]有多少夜 痛苦烦恼着你无法入睡…<br>
+[03:18.38]Life's a struggle 日子还要过<br>
+[03:20.26]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[03:22.91]Everyday 有多少问题要去面对<br>
+[03:25.60]有多少夜 痛苦烦恼着你无法入睡…<br>
+[03:28.09]不论我走到天南 不论我走到地北<br>
+[03:30.58]不论我走到哪都见识到人心的虚伪<br>
+[03:33.21]It's kinda funny 在人的眼里只有money<br>
+[03:35.74]外表好像要帮你 却只是想帮他自己<br>
+[03:38.36]笑容可掬的脸后面 谁知道是个狼心狗肺<br>
+[03:41.26]连朋友都能背叛 因为只有名利合他口味<br>
+[03:44.25]她说她爱你的时候讲的是问心无愧<br>
+[03:46.82]搞不好她爱的是你身后的荣华富贵<br>
+[03:49.36]你可曾困惑 在你身旁谁是敌是友<br>
+[03:51.99]对你落井下石的可能就是你的挚友<br>
+[03:54.61]你可曾经历 当你最需要帮助的时候<br>
+[03:57.05]平常跟你称兄道弟的人都突然失踪<br>
+[03:59.83]亲爱的神 伟大的神<br>
+[04:01.76]你可以怪我想法太过无知 但我只是人<br>
+[04:04.65]我不信人 因为人也不信我<br>
+[04:06.64]不要问我为什么 我最多只能告诉你这就是我<br>
+[04:09.75]生命像海浪一样有时高有时低<br>
+[04:12.22]你是否告诉自己坚强渡过各种时期<br>
+[04:14.59]我从命运的天台放眼却看不到星空<br>
+[04:17.17]漆黑的天空压在头顶使我不得轻松<br>
+[04:19.79]在我心中 找不到一个安静的角落<br>
+[04:22.33]我不能再沉睡下去 良心彷佛在笑我<br>
+[04:25.08]它在说：有几天几夜老妈曾经为你以泪洗面<br>
+[04:28.13]老爸他只顾己见 希望之火只见熄灭<br>
+[04:30.83]我接起电话是老爸憔悴的声音<br>
+[04:33.38]虽没见面却不难想像他当时的神情<br>
+[04:36.09]刚听完他最近失业的消息<br>
+[04:37.98]脑海里马上浮现祖母的话 警告我一定要争气<br>
+[04:41.11]我已经放弃所有哭的理由<br>
+[04:43.20]因为我早就习惯冷漠活在无情的现实里头<br>
+[04:46.30]人生要如何起头？改变要如何起手？<br>
+[04:49.00]当活在泥沼中 要如何才能金盆洗手？<br>
+[04:51.91]Life's a struggle 日子还要过<br>
+[04:53.59]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[04:56.45]Everyday 有多少问题要去面对<br>
+[04:58.86]有多少夜 痛苦烦恼着你无法入睡…<br>
+[05:02.21]Life's a struggle 日子还要过<br>
+[05:04.06]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[05:06.88]Everyday 有多少问题要去面对<br>
+[05:09.33]有多少夜 痛苦烦恼着你无法入睡…<br>
+[05:12.53]Life's a struggle 日子还要过<br>
+[05:14.41]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[05:17.31]Everyday 有多少问题要去面对<br>
+[05:19.78]有多少夜 痛苦烦恼着你无法入睡…<br>
+[05:22.97]Life's a struggle 日子还要过<br>
+[05:24.95]品尝喜怒哀乐之后 又是数不尽的troubles<br>
+[05:27.53]Everyday 有多少问题要去面对<br>
+[05:29.93]有多少夜 痛苦烦恼着你无法入睡…<br>
+[05:32.59]Uh...Life's a struggle<br>
+[05:36.09]yeah...Life's a struggle<br>
+[05:40.00]did u feel,man?...<br>
+<br/><br>
+<br/><br>
+<span style="padding-left:2em;color:red;font-size:18px;"><br>
+<B><br>
+第一次听到这首歌是在我的初中，在一部对我影响特别大的电视剧里。那时候我完全不知道这首歌在中文说唱圈代表着什么。而现在，故人已去，我也已经早就贰拾贰。但life仍然是个struggle。但那又怎样呢，日子还要过。</B><br>
+</span></p>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="donateContainer">
+                <span class="donatebtn">赏</span>
+            </div>
+            <div class="donateContainer">
+                <img src="https://i.loli.net/2020/08/14/WRwCGfILpX3j5gS.png" alt="" class="donate">
+            </div>
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong>X2</li>
+            <li><strong>原文链接：</strong>https://codingbear.top/song-yue-ting-lifes-a-struggle/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+            <div class="shareContainer">
+                <div class="share" style="height:30px;background: white;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qqs.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/wechats.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/weibos.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qzones.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/doubans.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/facebooks.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
+            
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://codingbear.top/jabbawockeez2016nba/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    <img src="https://i.loli.net/2021/05/21/DX3oi2J4lPYec1x.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">【假面舞团】NBA总决赛表演 JABBAWOCKEEZ</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://codingbear.top/jabbawockeez2016nba/">【假面舞团】NBA总决赛表演 JABBAWOCKEEZ</a>
+            </div>
+            
+            
+            <a data-pjax class="next-post-pc" href="https://codingbear.top/change/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    <img src="https://codingbear.top/变.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">Tizzy T/Jony J - 变</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://codingbear.top/change/">Tizzy T/Jony J - 变</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                                    
+        <div id="vcomments">
+        </div>
+        <script>
+            var valine = new Valine();
+            var curpath = window.location.pathname;
+            if (curpath[curpath.length - 1] != '/')
+                curpath += '/'
+            valine.init({
+                el: '#vcomments',
+                appId: 'aRJEq7MuzWMOwkGw2E7cTb0o-MdYXbMMI',
+                appKey: 'VU9tLRGs04JCbYMJJWUCiz7H',
+                notify: true,
+                verify: false,
+                avatar: 'retro',
+                pageSize: 10,
+                placeholder: '既然来了，何不畅所欲言呢？',
+                recordIP: true,
+                path: curpath //[重点] 记得添加path路径
+            });
+        </script>
+        <script type="text/javascript">
+            var jrsc = '既然来了，何不畅所欲言呢？';
+            jinrishici.load(function (result) {
+                // 自己的处理逻辑
+                jrsc = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
+                    .dynasty + " · " + result.data.origin.author;
+            });
+        </script>
+
+
+                                    <div class="clear"></div>
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+            <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+
+<body>
+    <div class="miniMode">
+        <meting-js id="myaplayer" server="netease" type="playlist" fixed="true" order="default" muted="muted">
+        </meting-js>
+    </div>
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script>
+    function aplayerInit() {
+        var aplayerid = "7677433291";
+        var aplayerserver = "tencent";
+        var aplayerorder = "random";
+        var aplayerautoplay = "true";
+        var aplayer = $("#myaplayer");
+        aplayer.attr("server", aplayerserver);
+        aplayer.attr("id", aplayerid);
+        aplayer.attr("order", aplayerorder);
+        if (aplayerautoplay == "true")
+            aplayer.attr("autoplay", "true");
+    }
+    aplayerInit();
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/Aplayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<script>
+    function aplayerbtnInit() {
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        if(player==undefined)return false;
+        player.lrc.hide();
+        var mbabtn = $("#mbaplayer");
+        if (player.paused == false) {
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        } else {
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+
+    function aplayerPlay() {
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        var mbabtn = $("#mbaplayer");
+        if (player.paused == true) {
+            player.play();
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        } else {
+            player.pause();
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+</script>
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    
+
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">link
+                </div>
+                
+                <div id="bgurl" style="display:none">https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    imglazyloadinit()
+    lazyload();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/live2d.js"></script>
+<script type="text/javascript" src="https://codingbear.top/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://codingbear.top/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = $('#bgchoice').html();
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+    bg.css("background", "url('" + bgurl + "')");
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://codingbear.top/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://codingbear.top/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->

@@ -1,0 +1,1224 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <meta name="description" content="面向对象四大基本特性
+封装
+封装：是指隐藏对象的属性和实现细节，仅对外提供公共访问方式。
+好处：
+
+将变化隔离。
+便于使用。
+提高重用性。
+提高安全性。
+
+封装原则：
+
+将不需要对外提供的内容都隐藏起来。
+把属性都隐藏，提供公共方法对其访问..." />
+    <meta name="keywords" content="java" />
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>琢钰</title>
+    
+    <style>
+        .markdownIt-TOC {
+            padding-left: 2px;
+            width: 100%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 2%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="codeCopyText" style="display: none">代码复制成功了哦</div>
+    <div id="domainname" style="display:none">https://codingbear.top</div>
+    <!-- 响应式布局，针对PC端内容显示 -->
+    <div id="content">
+        <div>
+            <div id="bar">
+                <head>
+  <!-- 引入Bootstrap核心样式文件 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/bootstrap.min.css">
+</head>
+<style>
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+  @media screen and (max-width:768px){
+    .mbapspan{
+      padding: 0;
+    }
+  }
+</style>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+          aria-expanded="false" id="barbutton">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="https://codingbear.top">琢钰&nbsp;&nbsp;|</a>
+        <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+            style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="barmenu">
+        <ul class="nav navbar-nav">
+          
+          
+          <li>
+            <a href="/">
+              首页
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/archives">
+              归档
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/tags">
+              标签
+            </a>
+          </li>
+          
+          
+          
+          <li>
+            <a href="/post/about">
+              关于
+            </a>
+          </li>
+          
+          
+          
+          <li><a href="https://codingbear.top/talk">说说</a></li>
+          
+          
+          <li><a href="https://codingbear.top/friends">友链</a></li>
+
+          
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+  var btstate = false;
+  var bt = $("#barbutton");
+  var bm = $("#barmenu");
+  bt.click(function(){
+    dropdown();
+  })
+  function dropdown(){
+    console.log(btstate);
+    //下拉
+    if(btstate==false){
+      bt.removeClass("collapsed");
+      bt.attr("aria-expanded","true");
+      bm.attr("aria-expanded","true")
+      bm.fadeIn(700);
+      btstate = true;
+    }
+    else{
+      bt.addClass("collapsed");
+      bt.attr("aria-expanded","false");
+      bm.removeClass("in");
+      bm.hide();
+      bm.attr("aria-expanded","false");
+      btstate = false;
+    }
+  }
+  </script> 
+</body>
+            </div>
+            <div class="row">
+                <div class="side"><body>
+    
+
+
+
+    
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <a class="navbar-brand" href="https://codingbear.top"
+                    style="font-size:21px">琢钰&nbsp;&nbsp;|&nbsp;&nbsp;</a>
+                <a class="navbar-brand" href=""
+                    style="font-size:15px;font-family:kaiti">玉不琢，不成器。人不学，不知义。</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse">
+                
+                <div class="search nav navbar-nav" style="margin-top:8px">
+                    <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+                    <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+                    <div class="search-results"></div>
+                </div>
+                
+                <div class="search nav navbar-nav searchtop">
+                <a title="text" onclick="document.getElementById('socialMenu').style.display='block'"><i><img class="social"
+                    src="https://codingbear.top/media/images/social.png" alt=""></i></a>
+            </div>
+            <ul class="nav navbar-nav" style="float: right;margin-right:5%">
+                
+                
+                <li>
+                    <a href="/" style="color:white">
+                        首页
+                    </a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/archives" style="color:white">
+                        归档
+                    </a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/tags" style="color:white">
+                        标签
+                    </a>
+                </li>
+                
+                
+                
+                <li>
+                    <a href="/post/about" style="color:white">
+                        关于
+                    </a>
+                </li>
+                
+                
+                
+                <li><a href="https://codingbear.top/talk" style="color:white;">说说</a></li>
+                
+                  
+                <li><a href="https://codingbear.top/friends" style="color:white">友链</a></li>
+                
+                  <li><img src="https://codingbear.top/images/avatar.png?v=1601730596414" alt=""
+                class="menutopavatar"></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="socialMenu">
+        <div class="animate">
+            <div class="socialContainer">
+                
+                <a href="https://github.com/godbear329" target="_blank"><i style="font-size: 40px;"><img class="icon "
+                            src="https://codingbear.top/media/images/github.png" alt=""></i></a>
+                
+                
+                <a onclick="showqq()" style="cursor:pointer"><i style="font-size: 40px;"><img class="icon" src="https://codingbear.top/media/images/QQ.png"
+                            alt=""></i></a>
+                
+                
+                <a href="https://www.zhihu.com/people/xmy0329" target="_blank"><i style="font-size: 40px;"><img class="icon"
+                            src="https://codingbear.top/media/images/zh.png" alt=""></i></a>
+                
+                
+                <a href="https://space.bilibili.com/37977624" target="_blank"><i style="font-size: 40px;"><img class="icon"
+                            src="https://codingbear.top/media/images/bilibili.png" alt=""></i></a>
+                
+                
+                
+                <a href="https://steamcommunity.com/id/xmy0329/" target="_blank"><i style="font-size: 40px;"><img class="icon"
+                            src="https://codingbear.top/media/images/steam.png" alt=""></i></a>
+                
+            </div>
+            <div id="qq" style="display:none">254716908</div>
+        </div>
+    </div>
+    <!-- 引入jQuery核心js文件 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script>
+        var social = document.getElementById('socialMenu');
+        // 鼠标点击模型外区域关闭登录框
+        window.onclick = function (event) {
+            if (event.target == social) {
+                social.style.display = "none";
+            }
+        }
+    </script>
+    
+</body>
+<script>
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    var searchInput = document.querySelector('.search-input');
+    var searchResults = document.querySelector('.search-results');
+
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+    // ajax 的兼容写法
+    var xhr = new XMLHttpRequest() || new ActiveXObject('Microsoft.XMLHTTP');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            xml = xhr.responseXML;
+            arrItems = xml.getElementsByTagName('entry');
+            itemLength = arrItems.length;
+            // 遍历并保存所有文章对应的标题、链接、内容到对应的数组中
+            // 同时过滤掉 HTML 标签
+            for (i = 0; i < itemLength; i++) {
+                var link = arrItems[i].getElementsByTagName('link')[0];
+                arrLinks[i] = link.getAttribute("href");
+                arrTitles[i] = arrItems[i].getElementsByTagName('title')[0].
+                childNodes[0].nodeValue.replace(/<.*?>/g, '');
+            }
+        }
+    }
+
+    // 开始获取根目录下 feed.xml 文件内的数据
+    xhr.open('get', '/atom.xml', true);
+    xhr.send();
+
+
+
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            if (arr1[i].search(input) !== -1) {
+                var arr = arr1;
+                indexItem.push(i); // 保存匹配值的索引
+                var indexContent = arr[i].search(input);
+                // 此时 input 为 RegExp 格式 /input/i，转换为原 input 字符串长度
+                var l = input.toString().length - 3;
+                var step = 10;
+
+                // 将匹配到内容的地方进行黄色标记，并包括周围一定数量的文本
+                arrResults.push(arr[i].slice(indexContent - step, indexContent));
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<b>[' + arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + "</p><hr />";
+            itemDiv.setAttribute('onclick', 'changeHref(arrLinks[indexItem[' + i + ']])');
+            searchResults.appendChild(itemDiv);
+        }
+    }
+
+    function changeHref(href) {
+        location.href = href;
+    }
+
+    function showqq() {
+        var qq = document.getElementById("qq").innerHTML;
+        if (qq != '')
+            window.location.href = "tencent://message/?uin=" + qq + "&Site=&Menu=yes";
+        else
+            alert("博主暂未设置QQ联系方式");
+    }
+</script>
+</div>
+                
+            <div class="col-md-2 col-lg-3"></div>
+            <div id="postmain" class="col-xs-12 col-sm-12 col-md-8  col-lg-6 posttop" >
+                <link rel="stylesheet" href="https://codingbear.top/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg" style="width:100%;overflow: hidden;">
+                
+                <img src="https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg" class="postimage">
+                
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2020-09-25</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 9 min read</div>
+            <div class="posttag">
+                
+                <a href="https://codingbear.top/tag/cQUfEVdLs/" class="postlink">
+                    <i class="fa fa-tag"></i> java
+                </a>
+                
+            </div>
+        </div>
+        
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2>总复习04-面向对象</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://codingbear.top/post/zong-fu-xi-mian-xiang-dui-xiang/</div>
+                <div id="rootaddr" style="display:none">https://codingbear.top</div>
+                <span id="hotnum">
+                    <h4><i class="fa fa-eye" aria-hidden="true" style="color: #FF8C00;"></i>&nbsp;&nbsp;热度</i>: <i
+                            class="hotnum">loading...</i></h4>
+                </span>
+            </div>
+            <div class="text ">
+                <h2 id="面向对象四大基本特性">面向对象四大基本特性</h2>
+<h3 id="封装">封装</h3>
+<p>封装：是指隐藏对象的属性和实现细节，仅对外提供公共访问方式。</p>
+<p>好处：</p>
+<ol>
+<li>将变化隔离。</li>
+<li>便于使用。</li>
+<li>提高重用性。</li>
+<li>提高安全性。</li>
+</ol>
+<p>封装原则：</p>
+<ol>
+<li>将不需要对外提供的内容都隐藏起来。</li>
+<li>把属性都隐藏，提供公共方法对其访问。如，getXXX，setXXX。</li>
+</ol>
+<p>注意事项：</p>
+<ul>
+<li>私有仅仅是封装的一种体现而已。</li>
+<li>private关键字：是一个权限修饰符，用于修饰成员(成员变量和成员函数)，被私有化的成员只在本类中有效。</li>
+<li>常用场景之一：将成员变量私有化，对外提供对应的set、get方法对其进行访问，提高对数据访问的安全性。</li>
+</ul>
+<h3 id="继承">继承</h3>
+<blockquote>
+<p>在Java中，类的继承是指在一个现有类的基础上去构建一个新的类，构建出来的新类被称作子类，现有类被称作父类，子类会自动拥有父类所有可继承的属性和方法。在程序中，如果想声明一个类继承另一个类，需要使用extends关键字。</p>
+<p>通过 extends 关键字让类与类之间产生继承关系。</p>
+<p>多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中，那么多个类无需再定义这些属性和行为，只要继承那个类即可。多个类可以称为子类，单独这个类称为父类或者超类。</p>
+</blockquote>
+<p>注意事项：</p>
+<ul>
+<li>子类可以直接访问父类中的非私有的属性和行为。</li>
+<li><strong>子类无法继承父类中私有的内容。</strong></li>
+<li>父类怎么来的？共性不断向上抽取而来的。</li>
+<li><strong>父类的构造方法不可以继承。</strong></li>
+</ul>
+<p><em><strong>继承的特点</strong></em></p>
+<p>1．在Java中，类只支持单继承，不允许多重继承，也就是说一个类只能有一个直接父类，例如下面这种情况是不合法的。</p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2020/06/24/FqWIKXQuZv62bTJ.png" alt="1500704447701" loading="lazy"></figure>
+<p>2．多个类可以继承一个父类，例如下面这种情况是允许的。</p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2020/06/24/6anqby3NfxcI28E.png" alt="1500704467099" loading="lazy"></figure>
+<p>3．在Java中，多层继承是可以的，即一个类的父类可以再去继承另外的父类，例如C类继承自B类，而B类又可以去继承A类，这时，C类也可称作A类的子类。例如下面这种情况是允许的。</p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2020/06/24/oQTSAEOY8IHcPxB.png" alt="1500704487847" loading="lazy"></figure>
+<p>4．在Java中，子类和父类是一种相对概念，也就是说一个类是某个类父类的同时，也可以是另一个类的子类。例如上面的示例中，B类是A类的子类，同时又是C类的父类。</p>
+<p>Java只支持单继承，不支持多继承。一个类只能有一个父类，不可以有多个父类。 原因：因为多继承容易出现问题。两个父类中有相同的方法，子类到底要执行哪一个是不确定的。</p>
+<h3 id="多态">多态</h3>
+<blockquote>
+<p>定义：某一类事物的多种存在形态。</p>
+</blockquote>
+<p><span style="font-size:24px;color:red;background-color:yellow">编译时类型和运行时类型不一致就会出现多态。相同类型的变量调用同一个方法时呈现出多种不同的行为特征，这就是多态。最终多态体现为父类引用变量可以指向子类对象。</span></p>
+<p>多态的实现分为两种:</p>
+<ul>
+<li>向上转型</li>
+<li>向下转型</li>
+</ul>
+<p><span style="font-size:24px;color:red;background-color:yellow">同一个父类的方法会被不同的子类重写。在调用方法时，调用的是各个子类重写后的方法。</span></p>
+<p><em><strong>当子父类中出现同名的成员变量时，全部调用父类的成员变量，因为变量没有多态性，因为系统总是试图访问它编译时所定义的成员变量。</strong></em></p>
+<blockquote>
+<p>多态调用该变量时：<br>
+编译时期：参考的是引用型变量所属的类中是否有被调用的成员变量。没有，编译失败。<br>
+运行时期：也是调用引用型变量所属的类中的成员变量。<br>
+简单记：编译和运行都参考等号的左边。编译运行看左边。</p>
+</blockquote>
+<h3 id="抽象">抽象</h3>
+<p><strong>抽象定义：抽象就是从多个事物中将共性的、本质的内容抽取出来。</strong></p>
+<ol>
+<li>
+<p>抽象类</p>
+<p>Java允许在定义方法时不写方法体，不包含方法体的方法为抽象方法，抽象方法必须使用abstract关键字来修饰。</p>
+<p>Java中可以定义没有方法体的方法，该方法的具体实现由子类完成，该方法称为抽象方法，包含抽象方法的类就是抽象类。</p>
+<p><span style="color:red;background-color:purple">抽象类不一定有抽象方法,包含抽象方法的类一定是抽象类.</span></p>
+<p>抽象类不可以new创建对象,但是抽象类有构造方法.</p>
+</li>
+<li>
+<p>抽象类的使用</p>
+<ul>
+<li>定义一个子类继承抽象类</li>
+<li>复写抽象类中所有的抽象方法</li>
+</ul>
+</li>
+</ol>
+<h2 id="包">包</h2>
+<ul>
+<li>
+<p>import</p>
+<p>import后面的*只能代表类，不能代表包。</p>
+<p>import static 导入静态成员</p>
+</li>
+</ul>
+<h2 id="对象和类">对象和类</h2>
+<p>自己写了构造方法，系统将不再生成默认无参构造方法。</p>
+<p>对象在构造方法执行之前就已经产生了。</p>
+<h2 id="instanceof运算符">instanceof运算符</h2>
+<p>用来判断前面的对象是否是后面的类或者其子类、实现类的实例。前面的操作符编译时类型需要与后面的相同或者具有父子继承关系，否自编译出错。</p>
+<p>对象 instanceof 类名</p>
+<h2 id="访问权限关键字">访问权限关键字</h2>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th style="text-align:center">当前类</th>
+<th style="text-align:center">同包下的类</th>
+<th style="text-align:center">子类</th>
+<th style="text-align:center">不同包且无继承关系的类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td>protected</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td>default</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td>private</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+</tbody>
+</table>
+<h2 id="值传递和引用传递">值传递和引用传递</h2>
+<p>值传递不会改变实参，引用传递会改变实参。不可改变的final类也可以理解成值传递。</p>
+<h2 id="super和this关键字">super和this关键字</h2>
+<p style="color:red;">静态方法里不可以使用super和this关键字</p>
+<p><font color=red style="background-color:yellow;"> 可以通过this()和super()调用构造方法，必须放在第一行,普通方法中不能调用。</font></p>
+<h2 id="static关键字">static关键字</h2>
+<ol>
+<li>static可以修饰什么</li>
+</ol>
+<ul>
+<li>属性(静态属性、静态变量、类变量)</li>
+<li>一般方法(静态方法、类方法)</li>
+<li>游离语句块(静态语句代码块)</li>
+<li>内部类</li>
+</ul>
+<ol start="2">
+<li>static关键字注意事项</li>
+</ol>
+<ul>
+<li>在静态方法中是没有super和this关键字的</li>
+<li>静态方法只能访问静态的成员变量和静态的成员方法</li>
+<li>在Java中规定不能将方法体内的局部变量声明为static</li>
+</ul>
+<h2 id="final关键字">final关键字</h2>
+<p>作用：</p>
+<ol>
+<li>声明类：声明类的时候表示该类不能再被继承</li>
+<li>声明方法：声明方法的时候表示该方法不能被子类重写</li>
+<li>声明变量：声明变量的时候表示该变量变成常量（常量：一旦赋值之后，里面的值不能再变）</li>
+</ol>
+<p><span style="color:red;background-color:yellow">用final修饰复合数据类型的时候，引用不能重新赋值，但里面的内容可以重新赋值。</span></p>
+<p>final修饰方法形参时，形参只可以用传参初始化，不可以在方法体内对形参赋值。</p>
+<p>常见的Final类：</p>
+<ul>
+<li>所有的包装类</li>
+<li>String/StringBuilder/StringBuffer</li>
+<li>Math</li>
+<li>Class</li>
+<li>System</li>
+<li>java.time包下的除了Clock和ZoneId之外全都是</li>
+</ul>
+<h2 id="类的初始化顺序">类的初始化顺序</h2>
+<p><strong>父类静态游离块 &gt; 子类静态游离块 &gt; 父类游离块 &gt; 父类构造函数 &gt; 子类游离块 &gt; 子类构造函数</strong></p>
+<p style="color:red;font-size:20px">所有的变量初始化完，才会执行构造方法</p>
+<h2 id="可变参数">可变参数</h2>
+<p>可变长参数的底层是数组，访问的方式用for循环。</p>
+<h2 id="内部类">内部类</h2>
+<p>访问特点：<span style="color:red;background-color:yellow">内部类可以直接访问外部类中的成员，包括私有成员。而外部类要访问内部类中的成员必须要建立内部类的对象。</span></p>
+<h3 id="内部类和外部类的相互调用">内部类和外部类的相互调用</h3>
+<ol>
+<li>外部类访问内部类：</li>
+</ol>
+<blockquote>
+<p>内部类被static修饰：可以直接new</p>
+<p>Inner in = new Inner();</p>
+<p>内部类没有被static修饰:得先new出来外部类的实例，再new内部类的</p>
+<p>Inner in = new Outer().new Inner();</p>
+</blockquote>
+<ol start="2">
+<li>内部类访问外部类同名方法或变量
+<ul>
+<li>使用外部类变量：外部类名.this.变量名</li>
+<li>使用外部类方法：外部类名.this.方法名()</li>
+</ul>
+</li>
+</ol>
+<h3 id="内部类的分类">内部类的分类</h3>
+<ol>
+<li>
+<p>成员内部类</p>
+<ul>
+<li>
+<p>非静态内部类</p>
+</li>
+<li>
+<p>静态内部类</p>
+<p>创建静态内部类的对象时，不需要外部类的对象，可以直接创建。</p>
+</li>
+<li>
+<p>匿名内部类</p>
+</li>
+</ul>
+</li>
+<li>
+<p>方法内部类</p>
+<p>不能使用修饰符，只能在方法内使用。</p>
+</li>
+<li>
+<p>匿名内部类</p>
+<p>定义：就是内部类的简化写法。 前提：内部类必须继承或实现一个外部类或者接口,但两者不可兼得。 格式：new 外部类名或者接口名(){覆盖类或者接口中的代码，(也可以自定义内容。)} 简单理解：就是建立一个带内容的外部类或者接口的子类匿名对象。</p>
+<p>内部类定义在成员位置上，可以被private、static成员修饰符修饰。被static修饰的内部类只能访问外部类中 的静态成员。</p>
+<p>如果内部类中定义了静态成员，该内部类也必须是静态的！</p>
+<ul>
+<li>继承式</li>
+<li>接口式</li>
+<li>参数式</li>
+</ul>
+</li>
+</ol>
+<h2 id="接口和抽象类的区别">接口和抽象类的区别</h2>
+<h3 id="接口">接口</h3>
+<ul>
+<li>成员变量<strong>默认</strong>用　<code>public static final</code>修饰</li>
+<li>方法<strong>默认</strong>是<code>public abstract</code> 修饰</li>
+<li>jdk1.8 接口中还可以声明有方法体的方法，但是必须要有 <code>default</code> 修饰 <strong>或者</strong> <code>static</code> 修饰 ，而且这两个修饰符不能同时存在 。还可以用 stricfp 关键字修饰方法 ，只能和static搭配使用。</li>
+<li>JDK 1.9时，接口中的方法可以是private的。主要是为了提取冗余代码，以便我们的API客户端无法看到它们。</li>
+</ul>
+<h3 id="区别">区别</h3>
+<ul>
+<li>接口没有构造方法</li>
+<li>单继承多实现</li>
+<li>接口可以有静态方法和默认方法，抽象类和普通类一样</li>
+<li>接口里只能定义静态常量，抽象类可以定普通成员变量</li>
+</ul>
+<h2 id="重载和重写">重载和重写</h2>
+<p>重载：同一个类中的方法，名字相同，参数列表不同，与返回值无关</p>
+<p>重写：发生在继承关系中，两同两小一大原则</p>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="sharebtnContainer">
+                <button type="button" class="sharebtn">转载分享</button>
+            </div>
+            <div class="shareContainer">
+                <div class="share" style="height:30px;background: white;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/QQ.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/wechat.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/weibo.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qzone.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/douban.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/facebook.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
+            
+            
+            <div class="donateContainer">
+                <img src="https://codingbear.top/media/images/donate.png" alt="" class="donateImg">
+            </div>
+            <div class="donateContainer">
+                <img src="https://i.loli.net/2020/08/14/WRwCGfILpX3j5gS.png" alt="" class="donate">
+            </div>
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong>X2</li>
+            <li><strong>原文链接：</strong>https://codingbear.top/post/zong-fu-xi-mian-xiang-dui-xiang/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        <div id="otherpost">
+            
+            <div class="prev-post-pc">
+                <div id="ppcontainer" onclick="window.location.href= 'https://codingbear.top/post/fa-lao-yin-cang-qu-mu-featdai-si-meng-de/';return false">
+                    
+                    
+                    <img src="https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg" style="width: 100%;" class="opimg">
+                    
+                    
+                    <h4 class="optitle">法老-隐藏曲目（feat.戴斯蒙德）</h4>
+                </div>
+            </div>
+            <div class="prev-post">
+                上一篇 <a href="https://codingbear.top/post/fa-lao-yin-cang-qu-mu-featdai-si-meng-de/">法老-隐藏曲目（feat.戴斯蒙德）</a>
+            </div>
+            
+            
+            <div class="next-post-pc">
+                <div id="npcontainer" onclick="window.location.href= 'https://codingbear.top/post/ai-fu-jie-ni-korla/';return false">
+                    
+                    
+                    <img src="https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg" style="width: 100%;" class="opimg">
+                    
+                        
+                    <h4 class="optitle">艾福杰尼-KORLA</h4>
+                </div>
+            </div>
+            <div class="next-post">
+                下一篇 <a href="https://codingbear.top/post/ai-fu-jie-ni-korla/">艾福杰尼-KORLA</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                <div id="comment" class="comment" style="background: white">
+                    <div class="commentcontainer">
+                        
+                        <style>
+
+
+    @media screen and (min-width: 1300px) {
+        .veditor::placeholder {
+            color: #b3b3b3;
+            font-size: 18px;
+            text-align: center;
+            line-height: 3rem;
+            font-family: kaiti;
+        }
+    }
+</style>
+
+<body>
+    <div id="vcomments">
+    </div>
+    <script src="https://codingbear.top/media/js/valine.min.js"></script>
+    <!-- <script src="https://unpkg.com/valine/dist/Valine.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <script>
+        new Valine({
+            el: '#vcomments',
+            appId: 'aRJEq7MuzWMOwkGw2E7cTb0o-MdYXbMMI',
+            appKey: 'VU9tLRGs04JCbYMJJWUCiz7H',
+            notify: true,
+            verify: false,
+            avatar: 'retro',
+            pageSize: 10,
+            placeholder: '既然来了，何不畅所欲言呢？',
+            visitor: true, // 阅读量统计
+        });
+    </script>
+    <script type="text/javascript">
+        // jinrishici.load(function (result) {
+        //     var jrsc_plac = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
+        //         .dynasty + " · " + result.data.origin.author;
+        //     if (jrsc_plac != undefined)
+        //         document.getElementById("veditor").setAttribute("placeholder", jrsc_plac);
+        // 
+        var jrsc = '既然来了，何不畅所欲言呢？';
+        jinrishici.load(function (result) {
+                // 自己的处理逻辑
+                jrsc = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
+                 .dynasty + " · " + result.data.origin.author;
+            });
+    </script> 
+    
+</body>
+                        <div class="clear"></div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-2 col-lg-3">
+            </div>
+            <div id="bg">
+            </div>
+        </div>
+        
+        
+        <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+<body>
+    <div class="miniMode">
+        <meting-js id="myaplayer" server="netease" type="playlist" fixed="true" order="default">
+        </meting-js>
+    </div>   
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script>
+    var aplayerid = "7677433291";
+    var aplayerserver = "tencent";
+    var aplayerorder = "random";
+    var aplayerautoplay = "true";
+    var aplayer = $("#myaplayer");
+    aplayer.attr("server",aplayerserver);
+    aplayer.attr("id",aplayerid);
+    aplayer.attr("order",aplayerorder);
+    if(aplayerautoplay=="true")
+        aplayer.attr("autoplay","true");
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/Aplayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<script>
+    function aplayerbtnInit(){
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        player.lrc.hide();
+        var mbabtn = $("#mbaplayer");
+        if(player.paused==false)
+        {
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        }
+        else
+        {
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+
+    function aplayerPlay(){
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        var mbabtn = $("#mbaplayer");
+        if(player.paused==true)
+        {
+            player.play();
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        }
+        else
+        {
+            player.pause();
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+</script>
+        
+        <div class="toc-container">
+            <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9B%9B%E5%A4%A7%E5%9F%BA%E6%9C%AC%E7%89%B9%E6%80%A7">面向对象四大基本特性</a>
+<ul>
+<li><a href="#%E5%B0%81%E8%A3%85">封装</a></li>
+<li><a href="#%E7%BB%A7%E6%89%BF">继承</a></li>
+<li><a href="#%E5%A4%9A%E6%80%81">多态</a></li>
+<li><a href="#%E6%8A%BD%E8%B1%A1">抽象</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8C%85">包</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%92%8C%E7%B1%BB">对象和类</a></li>
+<li><a href="#instanceof%E8%BF%90%E7%AE%97%E7%AC%A6">instanceof运算符</a></li>
+<li><a href="#%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E5%85%B3%E9%94%AE%E5%AD%97">访问权限关键字</a></li>
+<li><a href="#%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92">值传递和引用传递</a></li>
+<li><a href="#super%E5%92%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97">super和this关键字</a></li>
+<li><a href="#static%E5%85%B3%E9%94%AE%E5%AD%97">static关键字</a></li>
+<li><a href="#final%E5%85%B3%E9%94%AE%E5%AD%97">final关键字</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F">类的初始化顺序</a></li>
+<li><a href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0">可变参数</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%B1%BB">内部类</a>
+<ul>
+<li><a href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">内部类和外部类的相互调用</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%88%86%E7%B1%BB">内部类的分类</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB">接口和抽象类的区别</a>
+<ul>
+<li><a href="#%E6%8E%A5%E5%8F%A3">接口</a></li>
+<li><a href="#%E5%8C%BA%E5%88%AB">区别</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E8%BD%BD%E5%92%8C%E9%87%8D%E5%86%99">重载和重写</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+    </div>
+    </div>
+    <div class="tog">
+        <div class="toggleContainer">
+            <div class="toggle">
+                <i class="fas fa-angle-double-up"></i>
+            </div>
+        </div>
+    </div>
+    <div id="bgchoice" style="display: none">link</div>
+    
+    <div id="bgurl" style="display:none">https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg</div>
+    
+    </div>
+</body>
+<script>
+    var img = $("img");
+    for (var i = 0; i < img.length; i++) {
+        if (img.eq(i).attr("class") == undefined) {
+            img.eq(i).attr("class", "lazyload");
+            var imgsrc = img.eq(i).attr("src");
+            img.eq(i).attr("data-original", imgsrc);
+            img.eq(i).attr("src", "");
+            img.eq(i).hide();
+        }
+    }
+</script>
+<script>
+    hljs.initHighlightingOnLoad();
+</script>
+<script>
+    //寻找所有code标签，加复制按钮鸭！(行内代码除外)
+    var codes = document.getElementsByTagName('code');
+    if (codes.length) {
+        for (var i = 0; i < codes.length; i++) {
+            //高度/行高=文本行数
+            // var rowNum=Math.round(codes[i].height()/parseFloat(codes[i].css('line-height')));
+            // console.log("当前有"+rowNum+"行");
+            var code_id = "code_id_" + i;
+            codes[i].setAttribute("id", code_id);
+            var ci = "#" + code_id;
+            var codedot = $(ci);
+            var rowNum = Math.round(codedot.height() / parseFloat(codedot.css('line-height')));
+            if (rowNum <= 1) continue;
+            var btn = document.createElement("button");
+            btn.setAttribute("class", "copybt");
+            btn.setAttribute("data-clipboard-target", "#" + code_id);
+            btn.innerHTML = '复制代码';
+            codes[i].parentNode.insertBefore(btn, codes[i]);
+        }
+    };
+    var cop = new ClipboardJS('.copybt');
+    var codeCopyText = $("#codeCopyText").html();
+    cop.on('success', function (e) {
+        alert(codeCopyText);
+        e.clearSelection();
+    });
+    cop.on('error', function (e) {
+        alert("矮油，复制失败了...手动复制吧勇士！");
+        e.clearSelection();
+    });
+</script>
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/live2d.js"></script>
+<script type="text/javascript" src="https://codingbear.top/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://codingbear.top/media/live2d/assets/tororo.model.json");
+</script>
+
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+
+<script>
+    var bgchoice = $('#bgchoice').html();
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+    bg.css("background", "url('" + bgurl + "')");
+</script>
+
+
+
+
+<!-- 动态更改上(下)一篇博客图片框长宽 -->
+<script>
+    npcontainer = document.querySelector('#npcontainer');
+    npstyle = window.getComputedStyle(npcontainer, null);
+    npwidth = npstyle.width;
+    npheight = 0.6 * Number(npwidth.replace("px", ""));
+    npheight = npheight.toString() + "px";
+    var op = $(".opimg");
+    op.css("height", npheight);
+</script>
+
+<script src="https://codingbear.top/media/share/dist/Share.js"></script>
+
+<script>
+    var avatarSrc = $(".menutopavatar").attr("src");
+    var dp = document.getElementsByClassName("navbar-brand")[1].innerHTML;
+</script>
+
+
+<script>
+    var title = document.getElementById("texttitle").getElementsByTagName("h2");
+    
+    var share = new Share('.share', {
+        title: title[0].innerHTML,
+        initialized: true,
+        //默认获取网站描述
+        description: dp,
+        //网站图片默认获取的是设置的用户头像
+        image: avatarSrc,
+        //激活的分享网站
+        sites: ["weibo", "qq", "wechat", "douban", "qzone", "facebook", "twitter", "google"],
+        //微信分享PC端会生成二维码分享,移动端如果可以唤起微信最好
+        wechatQrcodeTitle: "微信扫一扫：分享", // 微信二维码提示文字
+        wechatQrcodeHelper: '<p>微信里扫一下二维码</p><p>便可将本文分享至朋友圈。</p>',
+        //关闭的网站分享
+        disabled: ['google', 'linkedin'],
+        wechatQrcodePosition: 'bottom'
+    });
+
+    //点击分享按钮展现出分享icons
+    var sharebtnTag = false;
+    $(".sharebtn").click(function () {
+        if(!sharebtnTag)
+        {
+            $(".share").show();
+            sharebtnTag = true;
+        }
+        else
+        {
+            $(".share").hide();
+            sharebtnTag = false;
+        }
+    })
+
+    var donatebtnTag = false;
+    $(".donateImg").click(function () {
+        if(!donatebtnTag)
+        {
+            $(".donate").show();
+            donatebtnTag = true;
+        }
+        else{
+            $(".donate").hide();
+            donatebtnTag = false;
+        }
+    })
+
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload=function(){
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);
+        document.getElementById("veditor").setAttribute("placeholder", jrsc);
+        aplayerbtnInit();
+    }
+</script>
+
+
+<script>
+    jQuery(document).ready(function ($) {
+        function lazyload() {
+            var oLazyload = $("img.lazyload"),
+                fLazyload = function (hLazyload) {
+                    var nLazyload = $(window).height() + $(document).scrollTop();
+                    oLazyload.each(function () {
+                        $(this).offset().top < nLazyload && ($(this).trigger("appear"), oLazyload =
+                            oLazyload.not(this));
+                    }), 0 == oLazyload.length && $(window).unbind("scroll", fLazyload);
+                };
+            oLazyload.each(function () {
+                $(this).one("appear", function () {
+                    $(this).attr("src", $(this).attr("data-original"));
+                    $(this).fadeIn(500);
+                });
+            }), $(window).bind("scroll", fLazyload), fLazyload();
+        }
+        lazyload();
+    });
+</script>
+
+<!-- <script src="https://codingbear.top/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->
+
+<script>
+    function getHotnum() {
+        //文章阅读热度（重构，利用leancloud原生api）
+        var pl = $("#pl").html();
+        var rootaddr = $("#rootaddr").html();
+        pl = pl.replace(rootaddr, "");
+
+        var appid = 'aRJEq7MuzWMOwkGw2E7cTb0o-MdYXbMMI';
+        var appkey = 'VU9tLRGs04JCbYMJJWUCiz7H';
+        console.log(appid, appkey)
+        if(AV==undefined)
+            AV.init({
+                appId: appid,
+                appKey: appkey
+            });
+        const query = new AV.Query('Counter');
+        query.equalTo('url', pl);
+        var time = 'Loading...';
+        query.find().then(function (results) {
+            console.log(results)
+            if (results.length == 0) {
+                console.log("0")
+                var NewCounter = AV.Object.extend('Counter');
+                var nc = new NewCounter();
+                nc.save({
+                    time: 1,
+                    title: "总复习04-面向对象",
+                    url: pl,
+                    xid: pl,
+                }).then(function (object) {
+                    $(".hotnum").eq(0).html(1);
+                    $(".hotnum").eq(1).html(1);
+                });
+            } else {
+                id = results[0].id;
+                var todo = AV.Object.createWithoutData('Counter', id);
+                time = results[0].attributes.time + 1;
+                todo.set("time", time);
+                todo.save();
+                console.log(todo);
+                $(".hotnum").eq(0).html(time);
+                $(".hotnum").eq(1).html(time);
+            }
+
+        }, function (error) {
+            console.log(error)
+        });
+    }
+</script>

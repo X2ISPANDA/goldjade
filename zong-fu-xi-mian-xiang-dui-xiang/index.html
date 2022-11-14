@@ -1,0 +1,1846 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="面向对象四大基本特性
+封装
+封装：是指隐藏对象的属性和实现细节，仅对外提供公共访问方式。
+好处：
+
+将变化隔离。
+便于使用。
+提高重用性。
+提高安全性。
+
+封装原则：
+
+将不需要对外提供的内容都隐藏起来。
+把属性都隐藏，提供公共方法对其访问..." />
+    <meta name="keywords" content="java" />
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>总复习04-面向对象</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
+</head>
+
+<body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://codingbear.top</div>
+    <div id="content">
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <head>
+  <!-- 引入Bootstrap核心样式文件 -->
+  <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+</head>
+<style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" href="https://codingbear.top">琢钰&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        <li><a data-pjax href="https://codingbear.top/talk">说说</a></li>
+        
+          
+        <li><a data-pjax href="https://codingbear.top/friends">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
+    <link rel="stylesheet" href="https://codingbear.top/media/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://codingbear.top/styles/main.css">
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/default.min.css">
+    
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- fancybox -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+
+
+    <!--------- 数学公式👇---- -->
+    
+    <!--------- 数学公式👆----------------- -->
+    <!--------- daovocie功能👇 ------------------->
+    
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i["DaoVoiceObject"] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            a.charset = "utf-8";
+            m.parentNode.insertBefore(a, m)
+        })(window, document, "script", ('https:' == document.location.protocol ? 'https:' : 'http:') +
+            "//widget.daovoice.io/widget/" + "97be6dc3" + ".js", "daovoice")
+    </script>
+    
+    <!--------- daovocie功能👆 ------------------->
+    <!-- -----------------twikoo评论系统引入👇 --------->
+    <script src="https://cdn.jsdelivr.net/npm/twikoo@1.3.0/dist/twikoo.all.min.js"></script>
+    <!-- -----------------twikoo评论系统引入👆 --------->
+    <!---------------- leancloud api 功能依赖引入👇 -------->
+    <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script>
+    <!---------------- leancloud api 功能依赖引入👆 -------->
+    <!------------------ valine评论系统引入👇 ------------------>
+    <script src="https://codingbear.top/media/js/valine.min.js"></script>
+    <!------------------ valine评论系统引入👆 ------------------>
+    <!---------------- 今日诗词api功能依赖👇 ----------------------->
+    <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+    <!---------------- 今日诗词api功能依赖👆 ----------------------->
+</head>
+
+<style>
+    body {
+        overflow-x: hidden;
+        height: 100vh;
+        overflow-y: scroll;
+        cursor: url("https://codingbear.top/media/images/mouse_cursor.png"), auto
+    }
+</style>
+
+<body>
+    <!--=------ 页面加载动态画面👇 --------------->
+    <div class="pjaxloading" onclick="pjaxloadingClose()">
+        <div class="loadingbackground"></div>
+        <div id="loading">
+            <div class="loading">
+            </div>
+        </div>
+    </div>
+    <!--=------ 页面加载动态画面👆 --------------->
+
+    <!--------------- 左侧菜单栏👇 ------------------------>
+    
+    <div id=side>
+        <div class="r_m_div">
+            <a onclick="showAaplayer()"><i style="font-size: 20px;"><img
+                        src='https://codingbear.top/media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
+        </div>
+        <div class="avatar-border">
+            <img src="https://codingbear.top/images/avatar.png?v=1628686722853" class="avatar">
+        </div>
+        <div class="sitename">琢钰</div>
+        <span class="description" data-text='["玉不琢，不成器。人不学，不知义。"]'>&nbsp;</span>
+        <div class="siteinfocontainer">
+            <span class="siteinfo">文章</span>
+            <span class="siteinfo">标签</span>
+        </div>
+        <div class="siteinfocontainer">
+            <span class="siteinfo" id="siteinfo-postsnum"></span>
+            <span class="siteinfo">12</span>
+        </div>
+        
+        <div class="search">
+            <!-- <input type="text" class="search-input" placeholder="标题搜索(●'◡'●)" /> -->
+            <input type="text" class="search-input" placeholder="标题搜索 ⚆_⚆ つ♡">
+            <div class="search-results"></div>
+        </div>
+        
+    <div class="share-button">
+        <span>Hello,it&#39;s me！</span>
+        
+        <a href="https://github.com/godbear329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/github.png" alt=""></i></a>
+        
+        
+        <a onclick="showqq()"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/QQ.png" alt=""></i></a>
+        
+        
+        <a href="https://www.zhihu.com/people/xmy0329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/zh.png" alt=""></i></a>
+        
+        
+        <a href="https://space.bilibili.com/37977624" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/bilibili.png" alt=""></i></a>
+        
+        
+        
+        <a href="https://weibo.com/URsun329" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/weibos.png" alt=""></i></a>
+        
+        
+        
+        <a href="https://steamcommunity.com/id/xmy0329/" target="_blank"><i style="font-size: 20px;"><img class="icon"
+                    src="https://codingbear.top/media/images/steam.png" alt=""></i></a>
+        
+    </div>
+    <div id="qq" style="display:none">254716908</div>
+    <!------------ 加载菜单按钮👇 ------------------------->
+    <div class="menucontainer">
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="首页"></i>&nbsp;<span
+                    data-text="首页">首页</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/archives" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="归档"></i>&nbsp;<span
+                    data-text="归档">归档</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/tags" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="标签"></i>&nbsp;<span
+                    data-text="标签">标签</span>
+            </a>
+        </div>
+        
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="/post/about" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="关于"></i>&nbsp;<span
+                    data-text="关于">关于</span>
+            </a>
+        </div>
+        
+        
+
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/talk" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="说说"></i>&nbsp;<span data-text="说说">说说</span>
+            </a>
+        </div>
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/atom.xml" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="RSS"></i>&nbsp;<span data-text="RSS"> RSS</span>
+            </a>
+        </div>
+            
+        <div class="mchocie description">
+            <a data-pjax href="https://codingbear.top/friends" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="友人帐"></i>&nbsp;<span data-text="友人帐">友人帐</span>
+            </a>
+        </div>
+        
+        
+        <div class="mchocie description">
+            <a data-pjax href="#terrestrial" id="fog_go" class="open-popup menubutton" style="margin-right: 15px;">
+                    <i><img class="icon menuicon" src="" alt="御风飞行"></i>&nbsp;<span data-text="御风飞行">御风飞行</span>
+            </a>
+        </div>
+        
+    </div>
+    <!------------ 加载菜单按钮👆 ------------------------->
+    <hr>
+    <style>
+    .copyright {
+        font-size: 15px;
+        color: #d9d9d9;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .foot {
+            width: 100%;
+            height: 130px;
+        }
+    }
+
+    @media screen and (max-width: 1200px) {
+        .foot {
+            display: none;
+        }
+    }
+</style>
+
+<body>
+    <div class="foot">
+        <div id="footinfo">Powered by <a href="https://github.com/godbear329" target="_blank">X2</a> | Theme: <a
+                href="https://github.com/850552586/gridea-theme-fog">Fog</a>
+            <div>
+                
+                <div id="sitegotimeDate">载入天数...</div>
+                <div id="sitegotimes">载入时分秒...</div>
+                <div id="cussitetime" style="display:none">08/07/2020</div>
+                
+            </div>
+            <div>
+                
+                <script async
+                    src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/busuanzi.pure.mini.js"></script>
+                <div id="vistornum" style="margin:0">
+                    <span id="busuanzi_container_site_uv">
+                        <i class="fa fa-heart" aria-hidden="true" style="color: red;"></i> 总访问量:<span
+                            id="busuanzi_value_site_pv"></span>&nbsp;&nbsp;|&nbsp;&nbsp;
+                        <i class="fa fa-user-o" aria-hidden="true"></i> 访问人数:<span id="busuanzi_value_site_uv"></span>
+                    </span>
+                </div>
+                
+            </div>
+            <div class="copyright" style="color:white;text-align: center;">Copyright © 2021 codingbear.top 湘ICP备 2021008657号
+            </div>
+        </div>
+
+
+
+    </div>
+</body>
+
+<script>
+    //----------------------站点运行时间
+    var now = new Date();
+
+    function createtime() {
+        var sitegotime = document.getElementById("cussitetime").innerHTML + " 00:00:00";
+        var grt = new Date(sitegotime); //此处修改你的建站时间或者网站上线时间 
+        now.setTime(now.getTime() + 250);
+        days = (now - grt) / 1000 / 60 / 60 / 24;
+        dnum = Math.floor(days);
+        hours = (now - grt) / 1000 / 60 / 60 - (24 * dnum);
+        hnum = Math.floor(hours);
+        if (String(hnum).length == 1) {
+            hnum = "0" + hnum;
+        }
+        minutes = (now - grt) / 1000 / 60 - (24 * 60 * dnum) - (60 * hnum);
+        mnum = Math.floor(minutes);
+        if (String(mnum).length == 1) {
+            mnum = "0" + mnum;
+        }
+        seconds = (now - grt) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+        snum = Math.round(seconds);
+        if (String(snum).length == 1) {
+            snum = "0" + snum;
+        }
+        document.getElementById("sitegotimeDate").innerHTML = "本站已安全运行 " + dnum + " 天 ";
+        document.getElementById("sitegotimes").innerHTML = hnum + " 小时 " + mnum + " 分 " + snum + " 秒";
+    }
+
+    let intervalId = setInterval("createtime()", 250);
+</script>
+
+    </div>
+
+
+    <script src="https://codingbear.top/media/js/wordshow.js"></script>
+    
+    <!--------------- 左侧菜单栏👆 ------------------------>
+
+    <!----------------- 顶部菜单栏👇 ------------------------>
+    
+    <!----------------- 顶部菜单栏👆 ------------------------>
+
+<!--核心功能加载-->
+<script src="https://codingbear.top/media/js/mainfunc.js"></script>
+
+<!------------- Fog1.0版本彩蛋👇 -------------->
+    <section id="terrestrial" class="popup">
+        <a href="#" class="back">&lt; back</a>
+    </section>
+
+    <div class="flycontainer">
+        <div class="flyword">御风飞行中...</div>
+    </div>
+
+    <script>
+        $("#fog_go").click(function(){fog_go()});
+        async function fog_go(){
+            $(".bars").hide()
+            $("#live2d").hide()
+            await sleep(3000);
+            $(".flycontainer").css("display","flex");
+            $(".popup").fadeOut(500)
+            await sleep(2000);
+            var sitename = "琢钰";
+            getFogUser(sitename);
+        }
+
+        function fog_goregis(){
+            var sitename = "琢钰";
+            var siteurl = "https://codingbear.top";
+            regisFogUser(sitename,siteurl);
+        }
+        fog_goregis();
+    </script>
+<!------------- Fog1.0版本彩蛋👆 -------------->
+
+
+<!------ 根据自定义配置声明变量👇 --------------------->
+    
+    <script>
+        let shareChoice = true
+    </script>
+    
+    
+    <script>
+        let donateChoice = true
+    </script>
+    
+    
+    <script>
+        let searchChoice = true
+    </script>
+    
+    <script>let postsnum = 0;</script>
+    <div id="side-posttitle" style="display: none;">
+    
+    
+    马来西亚华人
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    东奥所感
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    十年
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习08-数据库
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习07-IO流
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习06-多线程
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习05-集合
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    法老-隐藏曲目（feat.戴斯蒙德）
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习04-面向对象
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    艾福杰尼-KORLA
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Skr Skr Skr - 艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    1992 Part 3（下）-艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    G Plus (El Chapo Remix) - 艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    1992 Part 3（上）-艾福杰尼
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    林宥嘉 - 年纪大了一点（Live） 橘子星光大道
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习03-几种基本的排序算法
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Kendrick Lamar - DNA.
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习02-流程控制与数组
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    总复习01-数据类型和运算符
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    【假面舞团】NBA总决赛表演 JABBAWOCKEEZ
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    宋岳庭 - Life&#39;s A Struggle
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Tizzy T/Jony J - 变
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Redis
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    阴三儿 - 北京晚报
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    C-Low - 一块胶布
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Nginx
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    Hello World！
+    <script>
+        postsnum += 1
+    </script>
+    
+    
+    
+    
+    </div>
+    
+        <script>
+            let menupos = 'left';
+            $("#siteinfo-postsnum").html(postsnum);
+        </script>
+    
+    <!------ 根据自定义配置声明变量👆 --------------------->
+
+
+    <!----------根据自定义配置设置图标信息👇---------->
+    <script>
+        var icondict = new Array();
+    </script>
+    
+    <script>
+        var iconname = "首页";
+        var iconurl = "https://cdn3.iconfinder.com/data/icons/vol-3/128/home-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "归档";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/files-and-folders-15/48/11-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "标签";
+        var iconurl = "https://cdn0.iconfinder.com/data/icons/expenses-vs-income/30/__label_tag_shopping_price-256.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "关于";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/basic-ui-flat-curv-bg/614/127_-_Information-256.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "说说";
+        var iconurl = "https://cdn1.iconfinder.com/data/icons/media-1-2/32/Communication-Conversation-Chat-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "友人帐";
+        var iconurl = "https://cdn0.iconfinder.com/data/icons/happy-man-human-resource-and-life-style-color-set-/91/Happy_Man_Human_Resource__Life_Style_C-02-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "RSS";
+        var iconurl = "https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/286_Rss_logo-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <script>
+        var iconname = "御风飞行";
+        var iconurl = "https://cdn2.iconfinder.com/data/icons/life-concepts-lifestyles/128/world-travel-512.png";
+        icondict[iconname] = iconurl;
+    </script>
+    
+    <!----------根据自定义配置设置图标信息👆---------->
+</body>
+
+<script src="https://codingbear.top/media/share/dist/Share.js"></script>
+<!-- 页面pjax测试 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery.pjax/2.0.1/jquery.pjax.js"></script>
+<!--确保jQuery已经在此之前加载-->
+<!-- <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script> -->
+<script src="https://codingbear.top/media/js/all-pjax.js"></script>
+<script>
+    //-------------------------------说说功能👇--------------------------------------
+    let talksall = [];
+    let talks = [];
+    let talkindex = 0;
+    get();
+
+    function get() {
+        var t = JSON.parse('[{"author":"X2","img":"","text":"黑科技（Black Technology ）是在日本动漫《全金属狂潮》中登场的术语，原意指非人类自力研发，凌驾于人类现有的科技之上的知识，引申为以人类现有的世界观无法理解的猎奇物。","time":"2020年8月12日09:21:02"},{"author":"X2","img":"https://i.loli.net/2021/05/18/tsuZa4rRfYMbH95.png","text":"ElasticSearch的404页面很有意思:`I refuse to prove that I exist,’ says Page, `for proof denies faith, and without faith I am nothing.’  `But,’ says Man, `The Babel fish is a dead giveaway, isn’t it? It could not have evolved by chance. It proves you exist, and so therefore, by your own arguments, you don’t. QED.’  `Oh dear,’ says Page, `I hadn’t thought of that,’ and promptly disappears in a puff of logic.","time":"2021年5月18日23:01:40"},{"author":"X2","img":"","text":"异常和错误的基类是Throwable，包括Exception和Error。","time":"2020年9月17日01:48:39"},{"author":"X2","img":"","text":"System.out.println()中System是java.lang中的一个类，out是System内的一个成员变量，这个变量是一个java.io.PrintStream类的对象，println是其中的一个方法。","time":"2020年9月16日19:19:32"},{"author":"X2","img":"https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2650078973,165148164&fm=26&gp=0.jpg","text":"承认自己的无知，乃是开启智慧的大门。","time":"2020年8月13日00:20:46"},{"author":"X2","img":"http://x0.ifengimg.com/res/2019/B5E2471C3A4D1232FBBE859658CF66AE0E06FB39_size189_w452_h345.png","text":"你走到光明处，有好心人报个信，你的男人王玉明接你回家。","time":"2020年8月20日22:26:53"},{"author":"X2","img":"","text":"局部变量不会进行初始化。","time":"2020年9月11日01:16:27"},{"author":"X2","img":"https://pic2.zhimg.com/80/v2-a51a22ae2f7001c50ed02a26e4a1bb29_720w.jpg","text":"满嘴顺口溜，你想考研啊？-《疯狂的赛车》","time":"2020年10月3日21:08:47"}]');
+        talkindex = t.length - 1;
+        for (var i = 0; i <= t.length - 1; i++) {
+            var d = {};
+            d["time"] = t[i].time;
+            d["author"] = t[i].author;
+            d["text"] = t[i].text;
+            d["img"] = t[i].img;
+            talksall.push(d);
+        }
+    }
+
+    function add() {
+        for (var i = talkindex; i >= 0 && i > talkindex - 3; i--) {
+            talks.push(talksall[i]);
+        }
+        talkindex = (talkindex - 3) >= 0 ? (talkindex - 3) : -1;
+        if (talkindex < 0) $("#getmorebt").hide();
+        show();
+    }
+
+    function show() {
+        var talkT = document.getElementById("talkContainer");
+        talkT.innerHTML = "";
+        for (var i = 0; i < talks.length; i++) {
+            if (talks[i].img != '') {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <span data-fancybox="images" href="' + talks[i].img + '"><img src="' + talks[i].img + '" class="talkimg"></span> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            } else {
+                talkT.innerHTML += '\
+            <div class="talk" v-for="t in talks"> \
+                <div class="ainfo">\
+                    <div class="ainfo-intro">\
+                        <div class="author">' + talks[i].author + '</div>·\
+                        <div class="time">' + talks[i].time + '</div>\
+                    </div>\
+                </div>\
+                <div class="talkcontent">' + talks[i].text + '\
+                </div\>\
+            ';
+            }
+        }
+    }
+    //-------------------------------说说功能👆--------------------------------------
+</script>
+
+<!---->
+<script>
+    function replaceAvatar() {
+        twikoo_avatar = $(".tk-avatar-img");
+        for (var i = 0; i < twikoo_avatar.length; i++) {
+            var asrc = twikoo_avatar.eq(i).attr('src');
+            if (asrc.search('cn.gravatar.com') != -1) {
+                twikoo_avatar.eq(i).attr('src', 'https://codingbear.top/media/images/comavatar.png');
+            }
+        }
+    }
+
+    function showWechat() {
+        var wechat = '';
+        alert("博主微信号：" + wechat);
+        return false;
+    }
+</script>
+
+<script>
+    /**
+     * https://github.com/tangkaichuan/gridea-search
+     */
+    // 检查缓存是否最新
+    function checkCache() {
+        var caches_postsnum = localStorage.getItem("postsnum");
+        var pt = document.getElementById("side-posttitle").innerHTML;
+        pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "")
+        var ptlen = pt.length;
+        var ptlen_storage = localStorage.getItem("poststitlelen");
+        if (caches_postsnum != postsnum || ptlen != ptlen_storage) {
+            console.log("更新缓存");
+            return false
+        }
+        return true;
+    }
+
+    (function () {
+        var CACHES = checkCache()
+        if (!CACHES) {
+            var NOW = Date.now()
+            var API_CONTENT = '../api-content/index.html' + '?_=' + NOW
+            preload(API_CONTENT);
+            getContents(show_getContentresult);
+        }
+
+        function show_getContentresult(data) {
+            console.log("获取成功");
+            var postslen = data["posts"].length;
+            localStorage.setItem('postsnum', postslen);
+            var poststitlelen = 0;
+            var pt = document.getElementById("side-posttitle").innerHTML;
+            pt = pt.replace(/\s+/g, '').replace(/<script>.*?<\/script>/gi, "");
+            localStorage.setItem('poststitlelen', pt.length);
+        }
+
+
+
+        // preload
+        function preload(url) {
+            var preloadLink = document.createElement('link')
+            preloadLink.href = url
+            preloadLink.rel = 'preload'
+            preloadLink.as = 'fetch'
+            preloadLink.crossOrigin = 'anonymous'
+            document.head.appendChild(preloadLink)
+        }
+
+        // 异步 GET 请求
+        function get(obj) {
+            var xhr = new XMLHttpRequest()
+            xhr.open('get', obj.url, true)
+            xhr.send(null)
+            xhr.onreadystatechange = function () {
+                // 异步请求：响应状态为4，数据加载完毕
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        obj.success(xhr.responseText)
+                    } else {
+                        obj.error(xhr.status)
+                    }
+                }
+            }
+        }
+
+        // 获取博客全文 api
+        function getContents(callback) {
+            if (CACHES) {
+                callback(CACHES.contents)
+            } else {
+                get({
+                    url: API_CONTENT,
+                    success: function (data) {
+                        callback(JSON.parse(data));
+                        localStorage.setItem('ContentsCache', data);
+                        getStorageContent();
+                    }
+                })
+            }
+        }
+    })()
+    //------------------------核心功能--pjax全局渲染👇-------------------
+    let talkinit = false;
+    $(document).pjax('a[data-pjax]', '#main', {
+        fragment: '#main',
+        timeout: 8000
+    }).on('pjax:complete', function () {
+        //代码块高亮渲染
+        document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+        });
+        //文章热度
+        getHotnum();
+        //文章索引
+        toginit();
+        //清空搜索栏
+        if (searchChoice) {
+            searchInit();
+            searchInput.value = "";
+        }
+        var pl = window.location.pathname;
+        //说说更新
+        if (pl.search("talk") != -1 && !talkinit) {
+            add();
+            talkinit = true;
+        } else if (pl.search("talk") != -1) {
+            show();
+        }
+        if (pl.search("post") != -1) {
+            if (shareChoice)
+                shareInit();
+            if (donateChoice)
+                donateInit();
+            imglazyloadinit();
+            lazyload();
+            codeinit();
+            if ("valine" == "twikoo") {
+                //twikoo头像更换
+                setTimeout(replaceAvatar, 3000);
+                setTimeout(replaceAvatar, 8000); //部分博主站点速度加载过慢，再添加一个延迟
+            }
+        }
+        if (btstate == true)
+            dropdown();
+    }).on('pjax:start', function () {
+        $(".pjaxloading").fadeIn(50);
+    }).on('pjax:end', function () {
+        $(".pjaxloading").fadeOut(50);
+    });
+    //------------------------核心功能--pjax全局渲染👆-------------------
+
+    //-------------------------------------------------搜索
+    // 获取搜索框、搜索按钮、清空搜索、结果输出对应的元素
+    if (searchChoice) {
+        var searchInput = document.querySelector('.search-input');
+        var searchResults = document.querySelector('.search-results');
+    }
+    // 申明保存文章的标题、链接、内容的数组变量
+    var searchValue = '',
+        arrItems = [],
+        arrLinks = [],
+        arrTitles = [],
+        arrContents = [],
+        arrResults = [],
+        indexItem = [],
+        itemLength = 0;
+    var tmpDiv = document.createElement('div');
+    tmpDiv.className = 'result-item';
+
+
+    function getStorageContent() {
+        var data = localStorage.getItem('ContentsCache');
+        data = JSON.parse(data);
+        posts = data["posts"];
+        for (var i = 0; i < posts.length; i++) {
+            arrLinks[i] = posts[i].link;
+            arrTitles[i] = posts[i].title;
+            arrContents[i] = posts[i].content;
+            itemLength++;
+        }
+    }
+    if (checkCache())
+        getStorageContent();
+    // 输入框内容变化后就开始匹配，可以不用点按钮
+    // 经测试，onkeydown, onchange 等方法效果不太理想，
+    // 存在输入延迟等问题，最后发现触发 input 事件最理想，
+    // 并且可以处理中文输入法拼写的变化
+    searchInput.oninput = function () {
+        setTimeout(searchConfirm, 0);
+    }
+    searchInput.onfocus = function () {
+        searchResults.style.display = 'block';
+    }
+
+    function searchConfirm() {
+        if (searchInput.value == '') {
+            searchResults.style.display = 'none';
+        } else if (searchInput.value.search(/^\s+$/) >= 0) {
+            // 检测输入值全是空白的情况
+            searchInit();
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '请输入有效内容...';
+            searchResults.appendChild(itemDiv);
+        } else {
+            // 合法输入值的情况
+            searchInit();
+            searchValue = searchInput.value;
+            // 在标题、内容中查找
+            searchMatching(arrTitles, arrContents, searchValue);
+        }
+    }
+
+    // 每次搜索完成后的初始化
+    function searchInit() {
+        arrResults = [];
+        indexItem = [];
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'block';
+    }
+
+    function searchMatching(arr1, arr2, input) {
+        // 忽略输入大小写
+        input = new RegExp(input, 'i');
+        var step = 10;
+        // 在所有文章标题、内容中匹配查询值
+        for (i = 0; i < itemLength; i++) {
+            var indexContent = arr2[i].search(input);
+            //标题匹配
+            if (arr1[i].search(input) != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+                if (indexContent != -1) {
+                    startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                    var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                    arrResults.push("....." + searchcontent + ".....");
+                } else
+                    arrResults.push("");
+            }
+            //内容匹配
+            else if (indexContent != -1) {
+                indexItem.push(i); // 保存匹配值的索引
+
+                startindex = (indexContent - step) >= 0 ? (indexContent - step) : 0;
+                var searchcontent = arr2[i].slice(indexContent - step, indexContent + 5)
+                arrResults.push("....." + searchcontent + ".....");
+            }
+        }
+
+        // 输出总共匹配到的数目
+        var totalDiv = tmpDiv.cloneNode(true);
+        totalDiv.innerHTML = '<b>总匹配：' + indexItem.length + ' 项<hr></b>';
+        searchResults.appendChild(totalDiv);
+
+        // 未匹配到内容的情况
+        if (indexItem.length == 0) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerText = '未匹配到内容...';
+            searchResults.appendChild(itemDiv);
+        }
+
+        // 将所有匹配内容进行组合
+        for (i = 0; i < arrResults.length; i++) {
+            var itemDiv = tmpDiv.cloneNode(true);
+            itemDiv.innerHTML = '<a data-pjax class="searchresults" href="' + arrLinks[indexItem[i]] + '"><b>[' +
+                arrTitles[indexItem[i]] +
+                ']</b><p>' + arrResults[i] + '</p></a><hr />';
+            searchResults.appendChild(itemDiv);
+        }
+    }
+</script>
+
+<script>
+    daovoice('init', {
+        app_id: "97be6dc3"
+    });
+    daovoice('update');
+</script>
+
+
+
+<!--------------------- 菜单栏图标加载功能👇 ----------------------->
+<script>
+var menulist = $(".menuicon");
+var menulength = menulist.length;
+for (var i = 0; i < menulength; i++) {
+    var altname = menulist.eq(i).attr("alt");
+    var iconurl = icondict[altname];
+    if (iconurl == undefined || iconurl == '')
+        continue;
+    if (iconurl == 'Home') {
+        menulist.eq(i).attr("src", "https://codingbear.top/media/images/Home.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Archive') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Archive.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Tag') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Tag.png");
+menulist.eq(i).show();
+} else if (iconurl == 'About') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/About.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Talk') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Talk.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Friends') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/Friends.png");
+menulist.eq(i).show();
+} else if (iconurl == 'Fly') {
+menulist.eq(i).attr("src", "https://codingbear.top/media/images/wind.png");
+menulist.eq(i).show();
+} else {
+menulist.eq(i).attr("src", iconurl);
+menulist.eq(i).show();
+}
+}
+</script>
+<!--------------------- 菜单栏图标加载功能👆 ----------------------->
+</div>
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
+                <div id="tab1" class="tab">
+                    <div class="bars">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <div class="close"></div>
+                </div>
+                <div class="col-md-1 col-lg-3"></div>
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <link rel="stylesheet" href="https://codingbear.top/media/css/font-awesome.css">
+
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
+            
+            <div class="postdetailimg">
+                <img src="https://i.loli.net/2021/05/21/LN9UG2pQYHarRlP.jpg" class="postimage" style="cursor:auto">
+            </div>
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2020-09-25</div>
+                <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 9 min read</div>
+                <div class="posttag">
+                    
+                    <a data-pjax href="https://codingbear.top/cQUfEVdLs/" class="postlink">
+                        <i class="fa fa-tag"></i> java
+                    </a>
+                    
+                </div>
+            </div>
+            
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">总复习04-面向对象</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://codingbear.top/zong-fu-xi-mian-xiang-dui-xiang/</div>
+                <div id="rootaddr" style="display:none">https://codingbear.top</div>
+                
+                    <span id="hotnum">
+                        <h4><i class="fa fa-eye" aria-hidden="true" style="color: #FF8C00;"></i>&nbsp;&nbsp;热度</i>: <i
+                                class="hotnum">loading...</i></h4>
+                    </span>
+                
+            </div>
+            <div class="text ">
+                <h2 id="面向对象四大基本特性">面向对象四大基本特性</h2>
+<h3 id="封装">封装</h3>
+<p>封装：是指隐藏对象的属性和实现细节，仅对外提供公共访问方式。</p>
+<p>好处：</p>
+<ol>
+<li>将变化隔离。</li>
+<li>便于使用。</li>
+<li>提高重用性。</li>
+<li>提高安全性。</li>
+</ol>
+<p>封装原则：</p>
+<ol>
+<li>将不需要对外提供的内容都隐藏起来。</li>
+<li>把属性都隐藏，提供公共方法对其访问。如，getXXX，setXXX。</li>
+</ol>
+<p>注意事项：</p>
+<ul>
+<li>私有仅仅是封装的一种体现而已。</li>
+<li>private关键字：是一个权限修饰符，用于修饰成员(成员变量和成员函数)，被私有化的成员只在本类中有效。</li>
+<li>常用场景之一：将成员变量私有化，对外提供对应的set、get方法对其进行访问，提高对数据访问的安全性。</li>
+</ul>
+<h3 id="继承">继承</h3>
+<blockquote>
+<p>在Java中，类的继承是指在一个现有类的基础上去构建一个新的类，构建出来的新类被称作子类，现有类被称作父类，子类会自动拥有父类所有可继承的属性和方法。在程序中，如果想声明一个类继承另一个类，需要使用extends关键字。</p>
+<p>通过 extends 关键字让类与类之间产生继承关系。</p>
+<p>多个类中存在相同属性和行为时，将这些内容抽取到单独一个类中，那么多个类无需再定义这些属性和行为，只要继承那个类即可。多个类可以称为子类，单独这个类称为父类或者超类。</p>
+</blockquote>
+<p>注意事项：</p>
+<ul>
+<li>子类可以直接访问父类中的非私有的属性和行为。</li>
+<li><strong>子类无法继承父类中私有的内容。</strong></li>
+<li>父类怎么来的？共性不断向上抽取而来的。</li>
+<li><strong>父类的构造方法不可以继承。</strong></li>
+</ul>
+<p><em><strong>继承的特点</strong></em></p>
+<p>1．在Java中，类只支持单继承，不允许多重继承，也就是说一个类只能有一个直接父类，例如下面这种情况是不合法的。</p>
+<figure data-type="image" tabindex="1"><img src="https://i.loli.net/2020/06/24/FqWIKXQuZv62bTJ.png" alt="1500704447701" loading="lazy"></figure>
+<p>2．多个类可以继承一个父类，例如下面这种情况是允许的。</p>
+<figure data-type="image" tabindex="2"><img src="https://i.loli.net/2020/06/24/6anqby3NfxcI28E.png" alt="1500704467099" loading="lazy"></figure>
+<p>3．在Java中，多层继承是可以的，即一个类的父类可以再去继承另外的父类，例如C类继承自B类，而B类又可以去继承A类，这时，C类也可称作A类的子类。例如下面这种情况是允许的。</p>
+<figure data-type="image" tabindex="3"><img src="https://i.loli.net/2020/06/24/oQTSAEOY8IHcPxB.png" alt="1500704487847" loading="lazy"></figure>
+<p>4．在Java中，子类和父类是一种相对概念，也就是说一个类是某个类父类的同时，也可以是另一个类的子类。例如上面的示例中，B类是A类的子类，同时又是C类的父类。</p>
+<p>Java只支持单继承，不支持多继承。一个类只能有一个父类，不可以有多个父类。 原因：因为多继承容易出现问题。两个父类中有相同的方法，子类到底要执行哪一个是不确定的。</p>
+<h3 id="多态">多态</h3>
+<blockquote>
+<p>定义：某一类事物的多种存在形态。</p>
+</blockquote>
+<p><span style="font-size:24px;color:red;background-color:yellow">编译时类型和运行时类型不一致就会出现多态。相同类型的变量调用同一个方法时呈现出多种不同的行为特征，这就是多态。最终多态体现为父类引用变量可以指向子类对象。</span></p>
+<p>多态的实现分为两种:</p>
+<ul>
+<li>向上转型</li>
+<li>向下转型</li>
+</ul>
+<p><span style="font-size:24px;color:red;background-color:yellow">同一个父类的方法会被不同的子类重写。在调用方法时，调用的是各个子类重写后的方法。</span></p>
+<p><em><strong>当子父类中出现同名的成员变量时，全部调用父类的成员变量，因为变量没有多态性，因为系统总是试图访问它编译时所定义的成员变量。</strong></em></p>
+<blockquote>
+<p>多态调用该变量时：<br>
+编译时期：参考的是引用型变量所属的类中是否有被调用的成员变量。没有，编译失败。<br>
+运行时期：也是调用引用型变量所属的类中的成员变量。<br>
+简单记：编译和运行都参考等号的左边。编译运行看左边。</p>
+</blockquote>
+<h3 id="抽象">抽象</h3>
+<p><strong>抽象定义：抽象就是从多个事物中将共性的、本质的内容抽取出来。</strong></p>
+<ol>
+<li>
+<p>抽象类</p>
+<p>Java允许在定义方法时不写方法体，不包含方法体的方法为抽象方法，抽象方法必须使用abstract关键字来修饰。</p>
+<p>Java中可以定义没有方法体的方法，该方法的具体实现由子类完成，该方法称为抽象方法，包含抽象方法的类就是抽象类。</p>
+<p><span style="color:red;background-color:purple">抽象类不一定有抽象方法,包含抽象方法的类一定是抽象类.</span></p>
+<p>抽象类不可以new创建对象,但是抽象类有构造方法.</p>
+</li>
+<li>
+<p>抽象类的使用</p>
+<ul>
+<li>定义一个子类继承抽象类</li>
+<li>复写抽象类中所有的抽象方法</li>
+</ul>
+</li>
+</ol>
+<h2 id="包">包</h2>
+<ul>
+<li>
+<p>import</p>
+<p>import后面的*只能代表类，不能代表包。</p>
+<p>import static 导入静态成员</p>
+</li>
+</ul>
+<h2 id="对象和类">对象和类</h2>
+<p>自己写了构造方法，系统将不再生成默认无参构造方法。</p>
+<p>对象在构造方法执行之前就已经产生了。</p>
+<h2 id="instanceof运算符">instanceof运算符</h2>
+<p>用来判断前面的对象是否是后面的类或者其子类、实现类的实例。前面的操作符编译时类型需要与后面的相同或者具有父子继承关系，否自编译出错。</p>
+<p>对象 instanceof 类名</p>
+<h2 id="访问权限关键字">访问权限关键字</h2>
+<table>
+<thead>
+<tr>
+<th>关键字</th>
+<th style="text-align:center">当前类</th>
+<th style="text-align:center">同包下的类</th>
+<th style="text-align:center">子类</th>
+<th style="text-align:center">不同包且无继承关系的类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+</tr>
+<tr>
+<td>protected</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td>default</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+<tr>
+<td>private</td>
+<td style="text-align:center">√</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+<td style="text-align:center">×</td>
+</tr>
+</tbody>
+</table>
+<h2 id="值传递和引用传递">值传递和引用传递</h2>
+<p>值传递不会改变实参，引用传递会改变实参。不可改变的final类也可以理解成值传递。</p>
+<h2 id="super和this关键字">super和this关键字</h2>
+<p style="color:red;">静态方法里不可以使用super和this关键字</p>
+<p><font color=red style="background-color:yellow;"> 可以通过this()和super()调用构造方法，必须放在第一行,普通方法中不能调用。</font></p>
+<h2 id="static关键字">static关键字</h2>
+<ol>
+<li>static可以修饰什么</li>
+</ol>
+<ul>
+<li>属性(静态属性、静态变量、类变量)</li>
+<li>一般方法(静态方法、类方法)</li>
+<li>游离语句块(静态语句代码块)</li>
+<li>内部类</li>
+</ul>
+<ol start="2">
+<li>static关键字注意事项</li>
+</ol>
+<ul>
+<li>在静态方法中是没有super和this关键字的</li>
+<li>静态方法只能访问静态的成员变量和静态的成员方法</li>
+<li>在Java中规定不能将方法体内的局部变量声明为static</li>
+</ul>
+<h2 id="final关键字">final关键字</h2>
+<p>作用：</p>
+<ol>
+<li>声明类：声明类的时候表示该类不能再被继承</li>
+<li>声明方法：声明方法的时候表示该方法不能被子类重写</li>
+<li>声明变量：声明变量的时候表示该变量变成常量（常量：一旦赋值之后，里面的值不能再变）</li>
+</ol>
+<p><span style="color:red;background-color:yellow">用final修饰复合数据类型的时候，引用不能重新赋值，但里面的内容可以重新赋值。</span></p>
+<p>final修饰方法形参时，形参只可以用传参初始化，不可以在方法体内对形参赋值。</p>
+<p>常见的Final类：</p>
+<ul>
+<li>所有的包装类</li>
+<li>String/StringBuilder/StringBuffer</li>
+<li>Math</li>
+<li>Class</li>
+<li>System</li>
+<li>java.time包下的除了Clock和ZoneId之外全都是</li>
+</ul>
+<h2 id="类的初始化顺序">类的初始化顺序</h2>
+<p><strong>父类静态游离块 &gt; 子类静态游离块 &gt; 父类游离块 &gt; 父类构造函数 &gt; 子类游离块 &gt; 子类构造函数</strong></p>
+<p style="color:red;font-size:20px">所有的变量初始化完，才会执行构造方法</p>
+<h2 id="可变参数">可变参数</h2>
+<p>可变长参数的底层是数组，访问的方式用for循环。</p>
+<h2 id="内部类">内部类</h2>
+<p>访问特点：<span style="color:red;background-color:yellow">内部类可以直接访问外部类中的成员，包括私有成员。而外部类要访问内部类中的成员必须要建立内部类的对象。</span></p>
+<h3 id="内部类和外部类的相互调用">内部类和外部类的相互调用</h3>
+<ol>
+<li>外部类访问内部类：</li>
+</ol>
+<blockquote>
+<p>内部类被static修饰：可以直接new</p>
+<p>Inner in = new Inner();</p>
+<p>内部类没有被static修饰:得先new出来外部类的实例，再new内部类的</p>
+<p>Inner in = new Outer().new Inner();</p>
+</blockquote>
+<ol start="2">
+<li>内部类访问外部类同名方法或变量
+<ul>
+<li>使用外部类变量：外部类名.this.变量名</li>
+<li>使用外部类方法：外部类名.this.方法名()</li>
+</ul>
+</li>
+</ol>
+<h3 id="内部类的分类">内部类的分类</h3>
+<ol>
+<li>
+<p>成员内部类</p>
+<ul>
+<li>
+<p>非静态内部类</p>
+</li>
+<li>
+<p>静态内部类</p>
+<p>创建静态内部类的对象时，不需要外部类的对象，可以直接创建。</p>
+</li>
+<li>
+<p>匿名内部类</p>
+</li>
+</ul>
+</li>
+<li>
+<p>方法内部类</p>
+<p>不能使用修饰符，只能在方法内使用。</p>
+</li>
+<li>
+<p>匿名内部类</p>
+<p>定义：就是内部类的简化写法。 前提：内部类必须继承或实现一个外部类或者接口,但两者不可兼得。 格式：new 外部类名或者接口名(){覆盖类或者接口中的代码，(也可以自定义内容。)} 简单理解：就是建立一个带内容的外部类或者接口的子类匿名对象。</p>
+<p>内部类定义在成员位置上，可以被private、static成员修饰符修饰。被static修饰的内部类只能访问外部类中 的静态成员。</p>
+<p>如果内部类中定义了静态成员，该内部类也必须是静态的！</p>
+<ul>
+<li>继承式</li>
+<li>接口式</li>
+<li>参数式</li>
+</ul>
+</li>
+</ol>
+<h2 id="接口和抽象类的区别">接口和抽象类的区别</h2>
+<h3 id="接口">接口</h3>
+<ul>
+<li>成员变量<strong>默认</strong>用　<code>public static final</code>修饰</li>
+<li>方法<strong>默认</strong>是<code>public abstract</code> 修饰</li>
+<li>jdk1.8 接口中还可以声明有方法体的方法，但是必须要有 <code>default</code> 修饰 <strong>或者</strong> <code>static</code> 修饰 ，而且这两个修饰符不能同时存在 。还可以用 stricfp 关键字修饰方法 ，只能和static搭配使用。</li>
+<li>JDK 1.9时，接口中的方法可以是private的。主要是为了提取冗余代码，以便我们的API客户端无法看到它们。</li>
+</ul>
+<h3 id="区别">区别</h3>
+<ul>
+<li>接口没有构造方法</li>
+<li>单继承多实现</li>
+<li>接口可以有静态方法和默认方法，抽象类和普通类一样</li>
+<li>接口里只能定义静态常量，抽象类可以定普通成员变量</li>
+</ul>
+<h2 id="重载和重写">重载和重写</h2>
+<p>重载：同一个类中的方法，名字相同，参数列表不同，与返回值无关</p>
+<p>重写：发生在继承关系中，两同两小一大原则</p>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="donateContainer">
+                <span class="donatebtn">赏</span>
+            </div>
+            <div class="donateContainer">
+                <img src="https://i.loli.net/2020/08/14/WRwCGfILpX3j5gS.png" alt="" class="donate">
+            </div>
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong>X2</li>
+            <li><strong>原文链接：</strong>https://codingbear.top/zong-fu-xi-mian-xiang-dui-xiang/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
+        </div>
+        
+            <div class="shareContainer">
+                <div class="share" style="height:30px;background: white;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qqs.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/wechats.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/weibos.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/qzones.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/doubans.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/facebooks.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://codingbear.top/media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
+            
+        <div id="otherpost">
+            
+            <a  data-pjax class="prev-post-pc" href="https://codingbear.top/fa-lao-yin-cang-qu-mu-featdai-si-meng-de/"  style="color: black;">
+                <div id="ppcontainer">
+                    
+                    <img src="https://i.loli.net/2021/05/21/XMOBdlTyD6r7Hx8.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">法老-隐藏曲目（feat.戴斯蒙德）</h4>
+                </div>
+            </a>
+            <div class="prev-post">
+                上一篇 <a  data-pjax href="https://codingbear.top/fa-lao-yin-cang-qu-mu-featdai-si-meng-de/">法老-隐藏曲目（feat.戴斯蒙德）</a>
+            </div>
+            
+            
+            <a data-pjax class="next-post-pc" href="https://codingbear.top/ai-fu-jie-ni-korla/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    <img src="https://i.loli.net/2021/05/21/JfKd4FByD7rj8tz.jpg" style="width: 100%;" class="opimg">
+                    
+                    <h4 class="optitle">艾福杰尼-KORLA</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://codingbear.top/ai-fu-jie-ni-korla/">艾福杰尼-KORLA</a>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E5%9B%9B%E5%A4%A7%E5%9F%BA%E6%9C%AC%E7%89%B9%E6%80%A7">面向对象四大基本特性</a>
+<ul>
+<li><a href="#%E5%B0%81%E8%A3%85">封装</a></li>
+<li><a href="#%E7%BB%A7%E6%89%BF">继承</a></li>
+<li><a href="#%E5%A4%9A%E6%80%81">多态</a></li>
+<li><a href="#%E6%8A%BD%E8%B1%A1">抽象</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8C%85">包</a></li>
+<li><a href="#%E5%AF%B9%E8%B1%A1%E5%92%8C%E7%B1%BB">对象和类</a></li>
+<li><a href="#instanceof%E8%BF%90%E7%AE%97%E7%AC%A6">instanceof运算符</a></li>
+<li><a href="#%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E5%85%B3%E9%94%AE%E5%AD%97">访问权限关键字</a></li>
+<li><a href="#%E5%80%BC%E4%BC%A0%E9%80%92%E5%92%8C%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92">值传递和引用传递</a></li>
+<li><a href="#super%E5%92%8Cthis%E5%85%B3%E9%94%AE%E5%AD%97">super和this关键字</a></li>
+<li><a href="#static%E5%85%B3%E9%94%AE%E5%AD%97">static关键字</a></li>
+<li><a href="#final%E5%85%B3%E9%94%AE%E5%AD%97">final关键字</a></li>
+<li><a href="#%E7%B1%BB%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96%E9%A1%BA%E5%BA%8F">类的初始化顺序</a></li>
+<li><a href="#%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0">可变参数</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%B1%BB">内部类</a>
+<ul>
+<li><a href="#%E5%86%85%E9%83%A8%E7%B1%BB%E5%92%8C%E5%A4%96%E9%83%A8%E7%B1%BB%E7%9A%84%E7%9B%B8%E4%BA%92%E8%B0%83%E7%94%A8">内部类和外部类的相互调用</a></li>
+<li><a href="#%E5%86%85%E9%83%A8%E7%B1%BB%E7%9A%84%E5%88%86%E7%B1%BB">内部类的分类</a></li>
+</ul>
+</li>
+<li><a href="#%E6%8E%A5%E5%8F%A3%E5%92%8C%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E5%8C%BA%E5%88%AB">接口和抽象类的区别</a>
+<ul>
+<li><a href="#%E6%8E%A5%E5%8F%A3">接口</a></li>
+<li><a href="#%E5%8C%BA%E5%88%AB">区别</a></li>
+</ul>
+</li>
+<li><a href="#%E9%87%8D%E8%BD%BD%E5%92%8C%E9%87%8D%E5%86%99">重载和重写</a></li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                                    
+        <div id="vcomments">
+        </div>
+        <script>
+            var valine = new Valine();
+            var curpath = window.location.pathname;
+            if (curpath[curpath.length - 1] != '/')
+                curpath += '/'
+            valine.init({
+                el: '#vcomments',
+                appId: 'aRJEq7MuzWMOwkGw2E7cTb0o-MdYXbMMI',
+                appKey: 'VU9tLRGs04JCbYMJJWUCiz7H',
+                notify: true,
+                verify: false,
+                avatar: 'retro',
+                pageSize: 10,
+                placeholder: '既然来了，何不畅所欲言呢？',
+                recordIP: true,
+                path: curpath //[重点] 记得添加path路径
+            });
+        </script>
+        <script type="text/javascript">
+            var jrsc = '既然来了，何不畅所欲言呢？';
+            jinrishici.load(function (result) {
+                // 自己的处理逻辑
+                jrsc = result.data.content + "\n「" + result.data.origin.title + "」" + result.data.origin
+                    .dynasty + " · " + result.data.origin.author;
+            });
+        </script>
+
+
+                                    <div class="clear"></div>
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+            <head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+</head>
+
+<body>
+    <div class="miniMode">
+        <meting-js id="myaplayer" server="netease" type="playlist" fixed="true" order="default" muted="muted">
+        </meting-js>
+    </div>
+</body>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+<script>
+    function aplayerInit() {
+        var aplayerid = "7677433291";
+        var aplayerserver = "tencent";
+        var aplayerorder = "random";
+        var aplayerautoplay = "true";
+        var aplayer = $("#myaplayer");
+        aplayer.attr("server", aplayerserver);
+        aplayer.attr("id", aplayerid);
+        aplayer.attr("order", aplayerorder);
+        if (aplayerautoplay == "true")
+            aplayer.attr("autoplay", "true");
+    }
+    aplayerInit();
+</script>
+
+<script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/Aplayer.min.js"></script>
+<!-- require MetingJS -->
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+<script>
+    function aplayerbtnInit() {
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        if(player==undefined)return false;
+        player.lrc.hide();
+        var mbabtn = $("#mbaplayer");
+        if (player.paused == false) {
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        } else {
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+
+    function aplayerPlay() {
+        var player = document.querySelectorAll('meting-js')[0].aplayer;
+        var mbabtn = $("#mbaplayer");
+        if (player.paused == true) {
+            player.play();
+            mbabtn.removeClass("fa-play-circle-o");
+            mbabtn.addClass("fa-pause-circle");
+        } else {
+            player.pause();
+            mbabtn.addClass("fa-play-circle-o");
+            mbabtn.removeClass("fa-pause-circle");
+        }
+    }
+</script>
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    
+
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">link
+                </div>
+                
+                <div id="bgurl" style="display:none">https://i.loli.net/2020/08/07/hOFtg9Ws68umCid.jpg</div>
+                
+    <!-- 背景图加载方式👆 -->
+</body>
+
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    imglazyloadinit()
+    lazyload();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
+
+<script type="text/javascript">
+    var message_Path = '/live2d/'
+    var home_Path = document.getElementById("domainname").innerHTML + "/"; //此处修改为你的域名，必须带斜杠
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/live2d.js"></script>
+<script type="text/javascript" src="https://codingbear.top/media/live2d/js/message.js"></script>
+<script type="text/javascript">
+    loadlive2d("live2d", "https://codingbear.top/media/live2d/assets/tororo.model.json");
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
+
+<!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+<script>
+    var bgchoice = $('#bgchoice').html();
+    var bg = $('#bg');
+    var bgurl = document.getElementById("bgurl").innerHTML;
+    if (bgchoice == 'default')
+        for (var i = 0; i < 3; i++)
+            bgurl = bgurl.replace("\\", "/");
+    bg.css("background", "url('" + bgurl + "')");
+</script>
+<!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
+
+
+
+
+<script src="https://codingbear.top/media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://codingbear.top/media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->
